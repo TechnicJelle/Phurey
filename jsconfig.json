@@ -1,0 +1,7 @@
+{
+	"include": [
+		"*.js",
+		"lib/*.js",
+		"lib/p5.global-mode.d.ts"
+	]
+}
