@@ -1,58 +1,56 @@
-//virtual camera
-//move the mouse around
-//the sprite follows the mouse but appears at the center of the sketch
-//because the camera is following it
-
 //the scene is way bigger than the canvas
-var SCENE_W = 1000;
-var SCENE_H = 5000;
-var DEBUG_MODE = true;
-var SCENE_MANAGER;
-var GAMEPAD;
+let SCENE_W = 1000;
+let SCENE_H = 8000;
+let DEBUG_MODE = true;
+let SCENE_MANAGER;
+let GAMEPAD;
 
 //assets
-var imgSpace;
-var imgPlayer;
+let imgSpace;
+let imgPlayer;
+let imgEnemyDefault;
 
 //objects
-var objBackgroundTiles; //background group
-var objPlayer;
-var grpObstacles;
+let objPlayer;
+let grpBackgroundTiles; //background group
+let grpObstacles;
+let enemies;
 
 //options
-var PLAYER_TOP_SPEED = 2;
-var PLAYER_SPEED_WHILE_CHARGING = 0.6;
-var PLAYER_SPEEDSQ_UNDER_WHICH_DASH_STOPS = 180;
-var PLAYER_MAX_DASH = 60;
-var PLAYER_SHORT_DASH = 30;
-var DRAG = 0.85;
-var MILLIS_FOR_FULL_DASH = 1000;
-var MILLIS_MINIMUM_FOR_DASH = 200;
-var MILLIS_BETWEEN_SHORT_DASHES = 500;
+let PLAYER_TOP_SPEED = 2;
+let PLAYER_SPEED_WHILE_CHARGING = 0.6;
+let PLAYER_SPEEDSQ_UNDER_WHICH_DASH_STOPS = 180;
+let PLAYER_MAX_DASH = 60;
+let PLAYER_SHORT_DASH = 30;
+let DRAG = 0.85;
+let MILLIS_FOR_FULL_DASH = 1000;
+let MILLIS_MINIMUM_FOR_DASH = 200;
+let MILLIS_BETWEEN_SHORT_DASHES = 500;
 
 //variables that need to be remembered
-var vecLeftStick;
-var gamepadConnectedAttempts = 0;
-var targetFrameRate = 60;
+let vecLeftStick;
+let gamepadConnectedAttempts = 0;
+let targetFrameRate = 60;
 
-var usingGamepad = false;
+let usingGamepad = false;
 
 function preload() {
 	//create a sprite and add the 3 animations
 
 	imgSpace = loadImage("assets/space.png");
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
+	imgEnemyDefault = loadImage("assets/flappy_bird.png");
 }
 
 function setup() {
 	createCanvas(800, 800);
 	frameRate(targetFrameRate);
 
-	var h1 = createElement("h1", "Phurey");
+	let h1 = createElement("h1", "Phurey");
 	h1.style("color", "#FFFFFF");
 	h1.style("font-family", "Helvetica, sans-serif");
 	h1.style("text-align", "center");
-	var p = createP("Phurey is a challenging top-down slasher/shooter");
+	let p = createP("Phurey is a challenging top-down slasher/shooter");
 	p.style("color", "#FFFFFF");
 	p.style("font-family", "Helvetica, sans-serif");
 	p.style("text-align", "center");
@@ -67,7 +65,7 @@ function setup() {
 	if (!SCENE_MANAGER.isCurrent(sMainMenu)) {
 		gamepadConnectedAttempts++;
 		if (gamepadConnectedAttempts == 10) {
-		var h1 = createElement(
+		let h1 = createElement(
 			"h1",
 			"Your browser doesn't work well with gamepads. Use mouse and keyboard,<br/>or use Firefox to be able to use your gamepad after all."
 		);
@@ -95,16 +93,17 @@ function setup() {
 	}
 
 	objPlayer = new Player();
-	objBackgroundTiles = new Group();
-	for (let i = -100; i < SCENE_W + 500; i += imgSpace.width - 1) {
-		for (let j = -100; j < SCENE_H + 300; j += imgSpace.height - 1) {
+	grpBackgroundTiles = new Group();
+	for (let i = -imgSpace.width; i < SCENE_W + imgSpace.width+2; i += imgSpace.width - 1) {
+		for (let j = -imgSpace.height; j < SCENE_H + imgSpace.height+2; j += imgSpace.height - 1) {
 			let space = createSprite(i, j);
 			space.addImage(imgSpace);
-			objBackgroundTiles.add(space);
+			grpBackgroundTiles.add(space);
 		}
 	}
 
 	grpObstacles = new Group();
+	enemies = new Enemies();
 
 	SCENE_MANAGER = new SceneManager();
 	SCENE_MANAGER.addScene(sMainMenu);

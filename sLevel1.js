@@ -1,53 +1,57 @@
 class sLevel1 {
 	constructor() {
-		this.hintKbMovement;
-		this.hintKbDashShort;
-		this.hintKbDashLong;
-
-		this.hintGpMovement;
-		this.hintGpDashShort;
-		this.hintGpDashLong;
-
 		this.enter = function () {
 			objPlayer.p5spr.position.x = SCENE_W / 2;
 			objPlayer.p5spr.position.y = SCENE_H - 10;
 			objPlayer.p5spr.addSpeed(10, -90);
 
+
+			//obstacles
 			grpObstacles.clear();
 			
-			this.riverHeight = SCENE_H - 400;
-			this.createRiver(-100, this.riverHeight);
-			this.createRiver(700, this.riverHeight);
-			this.createRiver(300, this.riverHeight);
-			this.createRiver(1100, this.riverHeight);
-
-
 			this.riverHeight = SCENE_H - 800;
 			this.createRiver(-100, this.riverHeight);
 			this.createRiver(700, this.riverHeight);
 			this.createRiver(300, this.riverHeight);
 			this.createRiver(1100, this.riverHeight);
-			this.riverHeight = SCENE_H - 900;
+
+
+			this.riverHeight = SCENE_H - 1200;
 			this.createRiver(-100, this.riverHeight);
 			this.createRiver(700, this.riverHeight);
 			this.createRiver(300, this.riverHeight);
 			this.createRiver(1100, this.riverHeight);
-			this.riverHeight = SCENE_H - 1000;
+			this.riverHeight = SCENE_H - 1300;
 			this.createRiver(-100, this.riverHeight);
 			this.createRiver(700, this.riverHeight);
 			this.createRiver(300, this.riverHeight);
 			this.createRiver(1100, this.riverHeight);
+			this.riverHeight = SCENE_H - 1400;
+			this.createRiver(-100, this.riverHeight);
+			this.createRiver(700, this.riverHeight);
+			this.createRiver(300, this.riverHeight);
+			this.createRiver(1100, this.riverHeight);
+
+			//enemies
+			enemies.clear();
+			
+			enemies.add(new eDefault(100, 100));
+
+			//input hints
+			this.hintPlus = loadAnimation("assets/ui/plus.png");
 
 			this.hintKbMovement = loadAnimation("assets/ui/wasd.png", "assets/ui/arrows.png", "assets/ui/ijkl.png");
 			this.hintKbMovement.frameDelay = 60;
 
 			this.hintKbDashShort = loadAnimation("assets/ui/spaceUP.png", "assets/ui/spaceDOWN.png");
+			this.hintDashShort = loadAnimation("assets/ui/spaceShort.png");
 			this.hintKbDashShort.frameDelay = 20;
 
 			this.hintKbDashLong = loadAnimation("assets/ui/spaceUP.png", "assets/ui/spaceDOWN.png");
+			this.hintDashLong = loadAnimation("assets/ui/spaceLong.png");
 			this.hintKbDashLong.frameDelay = 60;
 			
-			this.ss = loadSpriteSheet("assets/ui/stickL.png", 432/3, 384/4, 12);
+			this.ss = loadSpriteSheet("assets/ui/stickL.png", int(432/3), int(384/4), 12);
 			this.hintGpMovement = loadAnimation(this.ss);
 			this.hintGpMovement.frameDelay = 10;
 
@@ -68,8 +72,13 @@ class sLevel1 {
 
 		this.draw = function () {
 			//draw background
-			drawSprites(objBackgroundTiles);
+			drawSprites(grpBackgroundTiles);
 			drawSprites(grpObstacles);
+
+			enemies.array.forEach((enemy) => {
+				enemy.update();
+			});
+			drawSprites(enemies.group);
 
 			if (DEBUG_MODE) {
 				stroke(255);
@@ -81,24 +90,44 @@ class sLevel1 {
 				grpObstacles.debug = true;
 			}
 			
+			push();
+			translate(SCENE_W / 2 + 100, SCENE_H - 100);
 			if(usingGamepad) {
-				push();
-				translate(SCENE_W / 2 + 100, SCENE_H - 100);
 				animation(this.hintGpMovement, 0, 0);
-				animation(this.hintGpDashShortA, 30, -180);
-				animation(this.hintGpDashShortLB, 80, -200);
+
+				translate(0, -410);
+				animation(this.hintGpMovement, -200, -275);
+				animation(this.hintPlus, -97, -270);
+				translate(-80, -100)
+				animation(this.hintGpDashShortA, 30, -190);
+				animation(this.hintGpDashShortLB, 80, -190);
 				animation(this.hintGpDashShortLT, 80, -150);
+				animation(this.hintDashShort, 57, -215);
 				
-				translate(0, -400);
-				animation(this.hintGpDashLongA, 30, -180);
-				animation(this.hintGpDashLongLB, 80, -200);
+				translate(80, -320);
+				animation(this.hintGpMovement, -200, -275);
+				animation(this.hintPlus, -97, -270);
+				translate(-80, -100)
+				animation(this.hintGpDashLongA, 30, -190);
+				animation(this.hintGpDashLongLB, 80, -190);
 				animation(this.hintGpDashLongLT, 80, -150);
-				pop();
+				animation(this.hintDashLong, 57, -215);
 			} else {
-				animation(this.hintKbMovement, SCENE_W / 2 + 100, SCENE_H - 100);
-				animation(this.hintKbDashShort, SCENE_W / 2 + 130, SCENE_H - 250);
-				animation(this.hintKbDashLong, SCENE_W / 2 + 130, SCENE_H - 650);
+				animation(this.hintKbMovement, 0, 0);
+
+				translate(0, -400);
+				animation(this.hintKbMovement, -200, -280);
+				animation(this.hintPlus, -115, -280);
+				animation(this.hintKbDashShort, 0, -280);
+				animation(this.hintDashShort, 0, -280);
+
+				translate(0, -400);
+				animation(this.hintKbMovement, -200, -280);
+				animation(this.hintPlus, -115, -280);
+				animation(this.hintKbDashLong, 0, -280);
+				animation(this.hintDashLong, 0, -280);
 			}
+			pop();
 
 			objPlayer.update();
 			objPlayer.render();
