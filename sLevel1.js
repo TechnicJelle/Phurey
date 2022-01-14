@@ -39,39 +39,37 @@ class sLevel1 {
 			this.createRiver(1100, this.riverHeight);
 
 			this.hintKbMovement = loadAnimation("assets/ui/wasd.png", "assets/ui/arrows.png", "assets/ui/ijkl.png");
-			this.hintKbMovement.frameDelay = targetFrameRate;
+			this.hintKbMovement.frameDelay = 60;
 
 			this.hintKbDashShort = loadAnimation("assets/ui/spaceUP.png", "assets/ui/spaceDOWN.png");
-			this.hintKbDashShort.frameDelay = targetFrameRate/3.0;
+			this.hintKbDashShort.frameDelay = 20;
 
 			this.hintKbDashLong = loadAnimation("assets/ui/spaceUP.png", "assets/ui/spaceDOWN.png");
-			this.hintKbDashLong.frameDelay = targetFrameRate;
-
-			this.hintGpMovement = loadAnimation("assets/ui/L_dark_48.png");
-			this.hintGpMovement.frameDelay = targetFrameRate;
+			this.hintKbDashLong.frameDelay = 60;
+			
+			this.ss = loadSpriteSheet("assets/ui/stickL.png", 432/3, 384/4, 12);
+			this.hintGpMovement = loadAnimation(this.ss);
+			this.hintGpMovement.frameDelay = 10;
 
 			this.hintGpDashShortA = loadAnimation("assets/ui/A_color_dark_32.png", "assets/ui/A_dark_color_32.png");
-			this.hintGpDashShortA.frameDelay = targetFrameRate/3.0;
+			this.hintGpDashShortA.frameDelay = 20;
 			this.hintGpDashShortLB = loadAnimation("assets/ui/LB_light_32.png", "assets/ui/LB_dark_32.png",);
-			this.hintGpDashShortLB.frameDelay = targetFrameRate/3.0;
+			this.hintGpDashShortLB.frameDelay = 20;
 			this.hintGpDashShortLT = loadAnimation("assets/ui/LT_tall_light_32.png", "assets/ui/LT_tall_dark_32.png");
-			this.hintGpDashShortLT.frameDelay = targetFrameRate/3.0;
+			this.hintGpDashShortLT.frameDelay = 20;
 
 			this.hintGpDashLongA = loadAnimation("assets/ui/A_color_dark_32.png", "assets/ui/A_dark_color_32.png");
-			this.hintGpDashLongA.frameDelay = targetFrameRate;
+			this.hintGpDashLongA.frameDelay = 60;
 			this.hintGpDashLongLB = loadAnimation("assets/ui/LB_light_32.png", "assets/ui/LB_dark_32.png",);
-			this.hintGpDashLongLB.frameDelay = targetFrameRate;
+			this.hintGpDashLongLB.frameDelay = 60;
 			this.hintGpDashLongLT = loadAnimation("assets/ui/LT_tall_light_32.png", "assets/ui/LT_tall_dark_32.png");
-			this.hintGpDashLongLT.frameDelay = targetFrameRate;
+			this.hintGpDashLongLT.frameDelay = 60;
 		};
 
 		this.draw = function () {
 			//draw background
 			drawSprites(objBackgroundTiles);
 			drawSprites(grpObstacles);
-
-			objPlayer.update();
-			objPlayer.render();
 
 			if (DEBUG_MODE) {
 				stroke(255);
@@ -101,6 +99,9 @@ class sLevel1 {
 				animation(this.hintKbDashShort, SCENE_W / 2 + 130, SCENE_H - 250);
 				animation(this.hintKbDashLong, SCENE_W / 2 + 130, SCENE_H - 650);
 			}
+
+			objPlayer.update();
+			objPlayer.render();
 		};
 	}
 

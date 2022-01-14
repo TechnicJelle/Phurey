@@ -20,6 +20,7 @@ class Player {
 		this.mouse = createVector(0, 0);
 
 		GAMEPAD.bind(Gamepad.Event.BUTTON_DOWN, function (e) {
+			usingGamepad = true;
 			// e.control of GAMEPAD e.GAMEPAD pressed down
 			// print(e.control);
 			switch (e.control) {
@@ -47,6 +48,7 @@ class Player {
 			}
 		});
 		GAMEPAD.bind(Gamepad.Event.BUTTON_UP, function (e) {
+			usingGamepad = true;
 			// e.control of GAMEPAD e.GAMEPAD pressed down
 			//logmsg(e.control);
 			switch (e.control) {
@@ -66,6 +68,7 @@ class Player {
 			}
 		});
 		GAMEPAD.bind(Gamepad.Event.AXIS_CHANGED, function (e) {
+			usingGamepad = true;
 			// e.axis changed to value e.value for GAMEPAD e.GAMEPAD
 			// print(e);
 			if (e.axis.includes("LEFT")) {
