@@ -97,7 +97,7 @@ class Player {
 	}
 
 	requestDash() {
-		if (!this.dashCharging && !this.dashCollider.overlap(grpObstacles)) {
+		if (!this.dashCharging && !this.dashCollider.overlap(grpObstaclesDashthrough)) {
 			if (this.lastDashWasShort) {
 				if (
 					!this.dashing &&
@@ -175,7 +175,7 @@ class Player {
 
 		if (this.p5spr.velocity.magSq() < PLAYER_SPEEDSQ_UNDER_WHICH_DASH_STOPS) {
 			if(this.dashing) {
-				if(this.p5spr.overlap(grpObstacles)) {
+				if(this.p5spr.overlap(grpObstaclesDashthrough)) {
 					this.p5spr.position.x = this.posAtStartDash.x;
 					this.p5spr.position.y = this.posAtStartDash.y;
 				}
@@ -266,8 +266,10 @@ class Player {
 		
 		this.cameraShake.mult(0.9);
 		
+		this.p5spr.collide(grpObstaclesSolid);
 		if(!this.dashing) {
-			this.p5spr.collide(grpObstacles);
+			this.p5spr.collide(grpObstaclesDashthrough);
+			this.p5spr.collide(enemies.group)
 		}
 
 		//limit the player movements

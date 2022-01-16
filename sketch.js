@@ -1,12 +1,12 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 8000;
-let DEBUG_MODE = false;
+let DEBUG_MODE = true;
 let SCENE_MANAGER;
 let GAMEPAD;
 
 //assets
-let imgSpace;
+let imgSand;
 let imgPlayer;
 let imgEnemyDefault;
 let imgRiver;
@@ -15,7 +15,8 @@ let imgTree;
 //objects
 let objPlayer;
 let grpBackgroundTiles; //background group
-let grpObstacles;
+let grpObstaclesSolid;
+let grpObstaclesDashthrough;
 let enemies;
 
 //options
@@ -39,9 +40,9 @@ let usingGamepad = false;
 function preload() {
 	//create a sprite and add the 3 animations
 
-	imgSpace = loadImage("assets/space.png");
+	imgSand = loadImage("assets/sand.png");
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
-	imgEnemyDefault = loadImage("assets/flappy_bird.png");
+	imgEnemyDefault = loadImage("assets/eDefault.png");
 	imgRiver = loadImage("assets/platform.png");
 	imgTree = loadImage("assets/cloud_breathing0004.png");;
 }
@@ -98,15 +99,16 @@ function setup() {
 
 	objPlayer = new Player();
 	grpBackgroundTiles = new Group();
-	for (let i = -imgSpace.width; i < SCENE_W + imgSpace.width+2; i += imgSpace.width - 1) {
-		for (let j = -imgSpace.height; j < SCENE_H + imgSpace.height+2; j += imgSpace.height - 1) {
+	for (let i = -imgSand.width; i < SCENE_W + imgSand.width+2; i += imgSand.width - 1) {
+		for (let j = -imgSand.height; j < SCENE_H + imgSand.height+2; j += imgSand.height - 1) {
 			let space = createSprite(i, j);
-			space.addImage(imgSpace);
+			space.addImage(imgSand);
 			grpBackgroundTiles.add(space);
 		}
 	}
 
-	grpObstacles = new Group();
+	grpObstaclesSolid = new Group();
+	grpObstaclesDashthrough = new Group();
 	enemies = new Enemies();
 
 	SCENE_MANAGER = new SceneManager();
@@ -130,7 +132,7 @@ function draw() {
 		if (frameRate() < 59) targetFrameRate++;
 		frameRate(targetFrameRate);
 	}
-	text(int(frameRate()) + "/" + targetFrameRate, 10, 10);
+	if (DEBUG_MODE) text(int(frameRate()) + "/" + targetFrameRate, 10, 10);
 }
 
 function drawArrow(base, vec, myColor) {

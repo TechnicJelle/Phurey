@@ -5,10 +5,9 @@ class sLevel1 {
 			objPlayer.p5spr.position.y = SCENE_H - 10;
 			objPlayer.p5spr.addSpeed(10, -90);
 
-			//obstacles
-			grpObstacles.clear();
-			
-			this.createTree(200, SCENE_H - 2000);
+			//level content
+			enemies.clear();
+			grpObstaclesSolid.clear();
 			
 			let riverHeight = SCENE_H - 800;
 			this.createRiver(-100, riverHeight);
@@ -32,11 +31,11 @@ class sLevel1 {
 			this.createRiver(700, riverHeight);
 			this.createRiver(300, riverHeight);
 			this.createRiver(1100, riverHeight);
-
-			//enemies
-			enemies.clear();
 			
-			enemies.add(new eDefault(100, 100));
+
+			this.createTree(200, SCENE_H - 2200, 2.4);
+			this.createTree(850, SCENE_H - 2100, 3.0);
+			enemies.add(new eDefault(SCENE_W/2+20, SCENE_H - 2200, -70));
 
 			//input hints
 			this.hintPlus = loadAnimation("assets/ui/plus.png");
@@ -74,21 +73,20 @@ class sLevel1 {
 		this.draw = function () {
 			//draw background
 			drawSprites(grpBackgroundTiles);
-			drawSprites(grpObstacles);
+			drawSprites(grpObstaclesSolid);
+			drawSprites(grpObstaclesDashthrough);
 
 			enemies.array.forEach((enemy) => {
 				enemy.update();
+				enemy.render();
 			});
-			drawSprites(enemies.group);
 
-			if (DEBUG_MODE) {
-				stroke(255);
-				strokeWeight(4);
-				line(0, 0, 0, SCENE_H);
-				line(0, 0, SCENE_W, 0);
-				line(SCENE_W, 0, SCENE_W, SCENE_H);
-				line(0, SCENE_H, SCENE_W, SCENE_H);
-			}
+			stroke(255);
+			strokeWeight(4);
+			line(0, 0, 0, SCENE_H);
+			line(0, 0, SCENE_W, 0);
+			line(SCENE_W, 0, SCENE_W, SCENE_H);
+			line(0, SCENE_H, SCENE_W, SCENE_H);
 			
 			push();
 			translate(SCENE_W / 2 + 100, SCENE_H - 100);
@@ -137,17 +135,18 @@ class sLevel1 {
 	createRiver(x, y) {
 		let river = createSprite(x, y);
 		river.addImage(imgRiver);
-		river.setCollider("rectangle", 0, 0, imgRiver.width, imgRiver.height);
+		// river.setCollider("rectangle", 0, 0, imgRiver.width, imgRiver.height);
+		river.setDefaultCollider();
 		if (DEBUG_MODE) river.debug = true;
-		grpObstacles.add(river);
+		grpObstaclesDashthrough.add(river);
 	}
 	
-	createTree(x, y) {
+	createTree(x, y, scale) {
 		let tree = createSprite(x, y);
 		tree.addImage(imgTree);
-		tree.scale = 2;
+		tree.scale = scale;
 		tree.setCollider("circle", 0, 0, 50);
 		if (DEBUG_MODE) tree.debug = true;
-		grpObstacles.add(tree);
+		grpObstaclesSolid.add(tree);
 	}
 }
