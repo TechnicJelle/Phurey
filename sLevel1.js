@@ -5,32 +5,33 @@ class sLevel1 {
 			objPlayer.p5spr.position.y = SCENE_H - 10;
 			objPlayer.p5spr.addSpeed(10, -90);
 
-
 			//obstacles
 			grpObstacles.clear();
 			
-			this.riverHeight = SCENE_H - 800;
-			this.createRiver(-100, this.riverHeight);
-			this.createRiver(700, this.riverHeight);
-			this.createRiver(300, this.riverHeight);
-			this.createRiver(1100, this.riverHeight);
+			this.createTree(200, SCENE_H - 2000);
+			
+			let riverHeight = SCENE_H - 800;
+			this.createRiver(-100, riverHeight);
+			this.createRiver(700, riverHeight);
+			this.createRiver(300, riverHeight);
+			this.createRiver(1100, riverHeight);
 
 
-			this.riverHeight = SCENE_H - 1200;
-			this.createRiver(-100, this.riverHeight);
-			this.createRiver(700, this.riverHeight);
-			this.createRiver(300, this.riverHeight);
-			this.createRiver(1100, this.riverHeight);
-			this.riverHeight = SCENE_H - 1300;
-			this.createRiver(-100, this.riverHeight);
-			this.createRiver(700, this.riverHeight);
-			this.createRiver(300, this.riverHeight);
-			this.createRiver(1100, this.riverHeight);
-			this.riverHeight = SCENE_H - 1400;
-			this.createRiver(-100, this.riverHeight);
-			this.createRiver(700, this.riverHeight);
-			this.createRiver(300, this.riverHeight);
-			this.createRiver(1100, this.riverHeight);
+			riverHeight = SCENE_H - 1200;
+			this.createRiver(-100, riverHeight);
+			this.createRiver(700, riverHeight);
+			this.createRiver(300, riverHeight);
+			this.createRiver(1100, riverHeight);
+			riverHeight = SCENE_H - 1300;
+			this.createRiver(-100, riverHeight);
+			this.createRiver(700, riverHeight);
+			this.createRiver(300, riverHeight);
+			this.createRiver(1100, riverHeight);
+			riverHeight = SCENE_H - 1400;
+			this.createRiver(-100, riverHeight);
+			this.createRiver(700, riverHeight);
+			this.createRiver(300, riverHeight);
+			this.createRiver(1100, riverHeight);
 
 			//enemies
 			enemies.clear();
@@ -87,7 +88,6 @@ class sLevel1 {
 				line(0, 0, SCENE_W, 0);
 				line(SCENE_W, 0, SCENE_W, SCENE_H);
 				line(0, SCENE_H, SCENE_W, SCENE_H);
-				grpObstacles.debug = true;
 			}
 			
 			push();
@@ -135,8 +135,19 @@ class sLevel1 {
 	}
 
 	createRiver(x, y) {
-		this.river = createSprite(x, y);
-		this.river.addImage(loadImage("assets/platform.png"));
-		grpObstacles.add(this.river);
+		let river = createSprite(x, y);
+		river.addImage(imgRiver);
+		river.setCollider("rectangle", 0, 0, imgRiver.width, imgRiver.height);
+		if (DEBUG_MODE) river.debug = true;
+		grpObstacles.add(river);
+	}
+	
+	createTree(x, y) {
+		let tree = createSprite(x, y);
+		tree.addImage(imgTree);
+		tree.scale = 2;
+		tree.setCollider("circle", 0, 0, 50);
+		if (DEBUG_MODE) tree.debug = true;
+		grpObstacles.add(tree);
 	}
 }

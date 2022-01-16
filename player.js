@@ -2,6 +2,11 @@ class Player {
 	constructor() {
 		this.p5spr = createSprite(0, 0, 64, 64);
 		this.p5spr.addImage(imgPlayer);
+		this.p5spr.setCollider("circle", 0, 0, 16);
+		if (DEBUG_MODE) this.p5spr.debug = true;
+
+		this.dashCollider = createSprite(0, 0);
+		this.dashCollider.setCollider("circle", 0, 0, 15);
 		
 		this.cameraShake = createVector(0, 0);
 
@@ -92,7 +97,7 @@ class Player {
 	}
 
 	requestDash() {
-		if (!this.dashCharging) {
+		if (!this.dashCharging && !this.dashCollider.overlap(grpObstacles)) {
 			if (this.lastDashWasShort) {
 				if (
 					!this.dashing &&
@@ -270,6 +275,9 @@ class Player {
 		if (this.p5spr.position.y < 0) this.p5spr.position.y = 0;
 		if (this.p5spr.position.x > SCENE_W) this.p5spr.position.x = SCENE_W;
 		if (this.p5spr.position.y > SCENE_H) this.p5spr.position.y = SCENE_H;
+
+		this.dashCollider.position.x = this.p5spr.position.x;
+		this.dashCollider.position.y = this.p5spr.position.y;
 	}
 
 	render() {
@@ -292,6 +300,6 @@ class Player {
 	}
 	
 	camShake(strength) {
-		this.cameraShake = p5.Vector.random2D().setMag(strength);
+		this.cameraShake.add(p5.Vector.random2D().setMag(strength));
 	}
 }

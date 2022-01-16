@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 8000;
-let DEBUG_MODE = true;
+let DEBUG_MODE = false;
 let SCENE_MANAGER;
 let GAMEPAD;
 
@@ -9,6 +9,8 @@ let GAMEPAD;
 let imgSpace;
 let imgPlayer;
 let imgEnemyDefault;
+let imgRiver;
+let imgTree;
 
 //objects
 let objPlayer;
@@ -40,6 +42,8 @@ function preload() {
 	imgSpace = loadImage("assets/space.png");
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
 	imgEnemyDefault = loadImage("assets/flappy_bird.png");
+	imgRiver = loadImage("assets/platform.png");
+	imgTree = loadImage("assets/cloud_breathing0004.png");;
 }
 
 function setup() {
