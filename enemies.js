@@ -3,14 +3,14 @@ class Enemies {
 		this.clear();
 	}
 
+	clear() {
+		this.group = new Group(); //for the sprites
+		this.array = new Array(); //for the actual enemy classes
+	}
+
 	add(enemy) {
 		this.group.add(enemy.p5spr);
 		this.array.push(enemy);
-	}
-
-	clear() {
-		this.group = new Group();
-		this.array = new Array();
 	}
 
 	kill(enemy) {
