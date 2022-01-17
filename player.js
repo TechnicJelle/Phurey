@@ -47,6 +47,9 @@ class Player {
 					// case "FACE_1":
 					objPlayer.vecInputMovement.y = 1;
 					break;
+				case "FACE_3":
+					objPlayer.slash();
+					break;
 				case "FACE_1":
 				case "LEFT_BOTTOM_SHOULDER":
 				case "LEFT_TOP_SHOULDER":
@@ -288,29 +291,7 @@ class Player {
 
 		//sword
 		if(mouseWentDown(LEFT)) {
-			this.swordArea.setA(this.p5spr.position);
-			this.swordArea.setRotation(this.vecAim.heading());
-
-			enemies.group.forEach(enemy => {
-				let hit = false;
-				let div = 8;
-				for (let i = 0; i < TWO_PI; i+=TWO_PI/div) {
-					let vec = enemy.position.copy().add(enemy.collider.radius * cos(i), enemy.collider.radius * sin(i));
-					if(DEBUG_MODE) {
-						stroke(255, 0, 0);
-						strokeWeight(4);
-						point(vec.x, vec.y);
-					}
-					if (this.swordArea.pointCheck(vec)) {
-						hit = true;
-						break;
-					}
-				}
-				print(hit);
-				if(hit) {
-					enemy.life = 0;
-				}
-			});
+			this.slash();
 		}
 	}
 
@@ -338,5 +319,34 @@ class Player {
 	
 	camShake(strength) {
 		this.cameraShake.add(p5.Vector.random2D().setMag(strength));
+	}
+
+	slash() {
+		this.swordArea.setA(this.p5spr.position);
+		if(usingGamepad) {
+			this.swordArea.setRotation(radians(this.p5spr.getDirection()));
+		} else {
+			this.swordArea.setRotation(this.vecAim.heading());
+		}
+
+		enemies.group.forEach(enemy => {
+			let hit = false;
+			let div = 8;
+			for (let i = 0; i < TWO_PI; i+=TWO_PI/div) {
+				let vec = enemy.position.copy().add(enemy.collider.radius * cos(i), enemy.collider.radius * sin(i));
+				if(DEBUG_MODE) {
+					stroke(255, 0, 0);
+					strokeWeight(4);
+					point(vec.x, vec.y);
+				}
+				if (this.swordArea.pointCheck(vec)) {
+					hit = true;
+					break;
+				}
+			}
+			if(hit) {
+				enemies.kill(enemy);
+			}
+		});
 	}
 }

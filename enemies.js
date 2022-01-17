@@ -12,4 +12,10 @@ class Enemies {
 		this.group = new Group();
 		this.array = new Array();
 	}
+
+	kill(enemy) {
+		enemy.life = 0;
+		this.group.remove(enemy);
+		this.array.splice(this.array.indexOf(enemy));
+	}
 }
