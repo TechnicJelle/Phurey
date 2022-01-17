@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 8000;
-let DEBUG_MODE = true;
+let DEBUG_MODE = false;
 let SCENE_MANAGER;
 let GAMEPAD;
 
@@ -35,7 +35,7 @@ let vecLeftStick;
 let gamepadConnectedAttempts = 0;
 let targetFrameRate = 60;
 
-let usingGamepad = false;
+let usingGamepad;
 
 function preload() {
 	//create a sprite and add the 3 animations
@@ -66,7 +66,7 @@ function setup() {
 	GAMEPAD.bind(Gamepad.Event.CONNECTED, function (device) {
 	// a new GAMEPAD connected
 	print("connected");
-	usingGamepad = true;
+	setUsingGamepad(true);
 	if (!SCENE_MANAGER.isCurrent(sMainMenu)) {
 		gamepadConnectedAttempts++;
 		if (gamepadConnectedAttempts == 10) {
@@ -168,7 +168,7 @@ function mousePressed() {
 // }
 
 function kee() {
-	usingGamepad = false;
+	setUsingGamepad(false);
 	switch (key) {
 	case "w":
 	case "W":
@@ -204,11 +204,18 @@ function keyPressed() {
 }
 
 function keyReleased() {
-	objPlayer.vecInput.x = 0;
-	objPlayer.vecInput.y = 0;
+	objPlayer.vecInputMovement.x = 0;
+	objPlayer.vecInputMovement.y = 0;
 	return kee();
 }
 
 function keyTyped() {
 	return kee();
+}
+
+function setUsingGamepad(bool) {
+	if (usingGamepad != bool) {
+		usingGamepad = bool;
+		print("Using gamepad: " + bool);
+	}
 }

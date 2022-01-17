@@ -15,6 +15,6 @@ class eDefault {
 
 	render() {
 		drawSprite(this.p5spr);
-		drawArrow(this.p5spr.position, p5.Vector.fromAngle(radians(this.dirDeg)).setMag(50), color(255, 0, 0));
+		if(DEBUG_MODE) drawArrow(this.p5spr.position, p5.Vector.fromAngle(radians(this.dirDeg)).setMag(50), color(255, 0, 0));
 	}
 }
