@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 8000;
-let DEBUG_MODE = false;
+let DEBUG_MODE = true;
 let SCENE_MANAGER;
 let GAMEPAD;
 
@@ -33,7 +33,8 @@ let MILLIS_BETWEEN_SHORT_DASHES = 500;
 //variables that need to be remembered
 let vecLeftStick;
 let gamepadConnectedAttempts = 0;
-let targetFrameRate = 60;
+let lastFramerates = [];
+let frameRateWarniningGiven = false;
 
 let usingGamepad;
 
@@ -49,7 +50,7 @@ function preload() {
 
 function setup() {
 	createCanvas(800, 800);
-	frameRate(targetFrameRate);
+	frameRate(60);
 
 	let h1 = createElement("h1", "Phurey");
 	h1.style("color", "#FFFFFF");
@@ -70,13 +71,7 @@ function setup() {
 	if (!SCENE_MANAGER.isCurrent(sMainMenu)) {
 		gamepadConnectedAttempts++;
 		if (gamepadConnectedAttempts == 10) {
-		let h1 = createElement(
-			"h1",
-			"Your browser doesn't work well with gamepads. Use mouse and keyboard,<br/>or use Firefox to be able to use your gamepad after all."
-		);
-		h1.style("color", "#FF0000");
-		h1.style("font-family", "Helvetica, sans-serif");
-		h1.style("text-align", "center");
+			warnUser("Your browser doesn't work well with gamepads. Use mouse and keyboard,<br/>or use Firefox to be able to use your gamepad after all.");
 		}
 	}
 	});
@@ -127,12 +122,17 @@ function draw() {
 	camera.off();
 	//hud here
 	fill(255);
-	if (frameCount % 60 === 0) {
-		if (frameRate() > 61) targetFrameRate--;
-		if (frameRate() < 59) targetFrameRate++;
-		frameRate(targetFrameRate);
+	if(!frameRateWarniningGiven) {
+		lastFramerates.push(frameRate());
+		if(lastFramerates.length > 60) lastFramerates.shift();
+		let avg = lastFramerates.reduce((a,v,i)=>(a*i+v)/(i+1));
+		print(avg);
+		if (millis() > 5000 && avg > 75 && !SCENE_MANAGER.isCurrent(sMainMenu)) {
+			warnUser("This game runs too fast high refresh rate screens.<br/>Set your monitor's refresh rate to 60 for a better experience.");
+			frameRateWarniningGiven = true;
+		}
 	}
-	if (DEBUG_MODE) text(int(frameRate()) + "/" + targetFrameRate, 10, 10);
+	if (DEBUG_MODE) text(int(frameRate()), 10, 10);
 }
 
 function drawArrow(base, vec, myColor) {
@@ -218,4 +218,14 @@ function setUsingGamepad(bool) {
 		usingGamepad = bool;
 		print("Using gamepad: " + bool);
 	}
+}
+
+function warnUser(text) {
+	let h1 = createElement(
+		"h1",
+		text
+	);
+	h1.style("color", "#FF0000");
+	h1.style("font-family", "Helvetica, sans-serif");
+	h1.style("text-align", "center");
 }
