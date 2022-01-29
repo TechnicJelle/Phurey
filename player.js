@@ -22,9 +22,15 @@ class Player {
 		//sword variables
 		this.vecAim = createVector(0, 0);
 		this.vecInputAim = createVector(0, 0);
-		let radius = 60;
+		let reachWidthHalf = 60;
 		let reach = 100;
-		this.swordArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -radius, -reach, radius, -reach);
+		this.swordArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -reach, reachWidthHalf, -reach);
+		this.millisAtStartSlash = 0;
+		this.millisPerSlash = 150;
+		this.millisBetweenSlashes = 600;
+		this.slashing = false;
+		this.canSlash = true;
+		this.radAimAtStartSlash = 0;
 
 		GAMEPAD.bind(Gamepad.Event.BUTTON_DOWN, function (e) {
 			setUsingGamepad(true);
@@ -48,7 +54,7 @@ class Player {
 					objPlayer.vecInputMovement.y = 1;
 					break;
 				case "FACE_3":
-					objPlayer.slash();
+					objPlayer.requestSlash();
 					break;
 				case "FACE_1":
 				case "LEFT_BOTTOM_SHOULDER":
@@ -291,7 +297,13 @@ class Player {
 
 		//sword
 		if(mouseWentDown(LEFT)) {
-			this.slash();
+			this.requestSlash();
+		}
+		if(!this.canSlash && millis() - this.millisAtStartSlash > this.millisBetweenSlashes) {
+			this.canSlash = true;
+		}
+		if(this.slashing && millis() - this.millisAtStartSlash > this.millisPerSlash) {
+			this.slashing = false;
 		}
 	}
 
@@ -311,9 +323,19 @@ class Player {
 		ellipse(this.p5spr.position.x, this.p5spr.position.y, 64, 64);
 		this.p5spr.rotation = this.p5spr.getDirection();
 		drawSprite(this.p5spr);
-		if(DEBUG_MODE){
+		if(DEBUG_MODE && this.canSlash){
 			this.swordArea.drawDebug();
-			drawArrow(this.p5spr.position, p5.Vector.mult(this.vecAim, 50), "red");
+			// drawArrow(this.p5spr.position, p5.Vector.mult(this.vecAim, 50), "red");
+		}
+
+		if(this.slashing) {
+			push();
+			translate(this.p5spr.position.x, this.p5spr.position.y);
+			rotate(-0.25 * PI + HALF_PI)
+			rotate(map(millis() - this.millisAtStartSlash, 0, this.millisPerSlash, PI * 0.2, -PI * 0.2));
+			rotate(this.radAimAtStartSlash);
+			image(imgKatana, 0, -imgKatana.height);
+			pop();
 		}
 	}
 	
@@ -321,13 +343,23 @@ class Player {
 		this.cameraShake.add(p5.Vector.random2D().setMag(strength));
 	}
 
+	requestSlash() {
+		if(millis() - this.millisAtStartSlash > this.millisBetweenSlashes) {
+			this.slash();
+		}
+	}
+
 	slash() {
+		this.slashing = true;
+		this.canSlash = false;
 		this.swordArea.setA(this.p5spr.position);
 		if(usingGamepad) {
-			this.swordArea.setRotation(radians(this.p5spr.getDirection()));
+			this.radAimAtStartSlash = radians(this.p5spr.getDirection());
 		} else {
-			this.swordArea.setRotation(this.vecAim.heading());
+			this.radAimAtStartSlash = this.vecAim.heading();
 		}
+		this.swordArea.setRotation(this.radAimAtStartSlash);
+		this.millisAtStartSlash = millis();
 
 		enemies.group.forEach(enemy => {
 			let hit = false;

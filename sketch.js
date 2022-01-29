@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 8000;
-let DEBUG_MODE = true;
+let DEBUG_MODE = false;
 let SCENE_MANAGER;
 let GAMEPAD;
 
@@ -11,6 +11,7 @@ let imgPlayer;
 let imgEnemyDefault;
 let imgRiver;
 let imgTree;
+let imgKatana;
 
 //objects
 let objPlayer;
@@ -45,12 +46,13 @@ function preload() {
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
 	imgEnemyDefault = loadImage("assets/eDefault.png");
 	imgRiver = loadImage("assets/platform.png");
-	imgTree = loadImage("assets/cloud_breathing0004.png");;
+	imgTree = loadImage("assets/cloud_breathing0004.png");
+	imgKatana = loadImage("assets/katana.png");
 }
 
 function setup() {
 	createCanvas(800, 800);
-	frameRate(60);
+	frameRate(60); //framerate should be being limited to 60, but it isn't
 
 	let h1 = createElement("h1", "Phurey");
 	h1.style("color", "#FFFFFF");
@@ -126,7 +128,6 @@ function draw() {
 		lastFramerates.push(frameRate());
 		if(lastFramerates.length > 60) lastFramerates.shift();
 		let avg = lastFramerates.reduce((a,v,i)=>(a*i+v)/(i+1));
-		print(avg);
 		if (millis() > 5000 && avg > 75 && !SCENE_MANAGER.isCurrent(sMainMenu)) {
 			warnUser("This game runs too fast high refresh rate screens.<br/>Set your monitor's refresh rate to 60 for a better experience.");
 			frameRateWarniningGiven = true;
