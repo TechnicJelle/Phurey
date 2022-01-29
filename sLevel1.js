@@ -38,6 +38,7 @@ class sLevel1 {
 			enemies.add(new eDefault(SCENE_W/2+20, SCENE_H - 2200, -70));
 
 			//input hints
+			//keyboard+mouse
 			this.hintPlus = loadAnimation("assets/ui/plus.png");
 
 			this.hintKbMovement = loadAnimation("assets/ui/wasd.png", "assets/ui/arrows.png", "assets/ui/ijkl.png");
@@ -50,10 +51,18 @@ class sLevel1 {
 			this.hintKbDashLong = loadAnimation("assets/ui/spaceUP.png", "assets/ui/spaceDOWN.png");
 			this.hintDashLong = loadAnimation("assets/ui/spaceLong.png");
 			this.hintKbDashLong.frameDelay = 60;
-			
-			this.ss = loadSpriteSheet("assets/ui/stickL.png", int(432/3), int(384/4), 12);
-			this.hintGpMovement = loadAnimation(this.ss);
+
+			let ss = loadSpriteSheet("assets/ui/mouseLSheet.png", 45, 54, 2);
+			this.hintMouseL = loadAnimation(ss);
+			this.hintMouseL.frameDelay = 20;
+
+			//gamepad
+			ss = loadSpriteSheet("assets/ui/stickL.png", int(432/3), int(384/4), 12);
+			this.hintGpMovement = loadAnimation(ss);
 			this.hintGpMovement.frameDelay = 10;
+
+			this.hintGpForward = loadAnimation("assets/ui/controllerForward/tile000.png", "assets/ui/controllerForward/tile005.png");
+			this.hintGpForward.frameDelay = 20;
 
 			this.hintGpDashShortA = loadAnimation("assets/ui/A_color_dark_32.png", "assets/ui/A_dark_color_32.png");
 			this.hintGpDashShortA.frameDelay = 20;
@@ -68,6 +77,8 @@ class sLevel1 {
 			this.hintGpDashLongLB.frameDelay = 60;
 			this.hintGpDashLongLT = loadAnimation("assets/ui/LT_tall_light_32.png", "assets/ui/LT_tall_dark_32.png");
 			this.hintGpDashLongLT.frameDelay = 60;
+
+			this.hintGpSlash = loadAnimation("assets/ui/Layout_X_dark.png")
 		};
 
 		this.draw = function () {
@@ -94,7 +105,7 @@ class sLevel1 {
 				animation(this.hintGpMovement, 0, 0);
 
 				translate(0, -410);
-				animation(this.hintGpMovement, -200, -275);
+				animation(this.hintGpForward, -200, -275);
 				animation(this.hintPlus, -97, -270);
 				translate(-80, -100)
 				animation(this.hintGpDashShortA, 30, -190);
@@ -103,13 +114,16 @@ class sLevel1 {
 				animation(this.hintDashShort, 57, -215);
 				
 				translate(80, -320);
-				animation(this.hintGpMovement, -200, -275);
+				animation(this.hintGpForward, -200, -275);
 				animation(this.hintPlus, -97, -270);
 				translate(-80, -100)
 				animation(this.hintGpDashLongA, 30, -190);
 				animation(this.hintGpDashLongLB, 80, -190);
 				animation(this.hintGpDashLongLT, 80, -150);
 				animation(this.hintDashLong, 57, -215);
+
+				translate(0, -1200);
+				animation(this.hintGpSlash, -100, 150);
 			} else {
 				animation(this.hintKbMovement, 0, 0);
 
@@ -124,6 +138,9 @@ class sLevel1 {
 				animation(this.hintPlus, -115, -280);
 				animation(this.hintKbDashLong, 0, -280);
 				animation(this.hintDashLong, 0, -280);
+
+				translate(0, -1200);
+				animation(this.hintMouseL, -150, 0);
 			}
 			pop();
 

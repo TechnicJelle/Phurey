@@ -1,1 +1,3 @@
 katana sprite from: https://opengameart.org/content/weapons-icons
+enemy sprites: drew em myself
+most other sprites: p5.play default assets

@@ -129,7 +129,7 @@ function draw() {
 		if(lastFramerates.length > 60) lastFramerates.shift();
 		let avg = lastFramerates.reduce((a,v,i)=>(a*i+v)/(i+1));
 		if (millis() > 5000 && avg > 75 && !SCENE_MANAGER.isCurrent(sMainMenu)) {
-			warnUser("This game runs too fast high refresh rate screens.<br/>Set your monitor's refresh rate to 60 for a better experience.");
+			warnUser("This game runs too fast on high refresh rate screens.<br/>Set your monitor's refresh rate to 60 for a better experience.");
 			frameRateWarniningGiven = true;
 		}
 	}
