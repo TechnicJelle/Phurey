@@ -43,16 +43,18 @@ Skills required are quick reflexes and a drive to improve oneself.
 
 ### 1.4 Targets
 
-**Target Audience(s):**
-Ages: 13+
+##### Target Audience(s):
+Ages: 13+\
 Focus groups:
-Indie Game Fans
-Bullet hell shoot 'em up fans
-Player types: Achiever, Killer
-Target Hardware
+- Indie Game Fans
+- Bullet hell shoot 'em up fans
 
-**Platform(s):**
-Desktop Firefox
+Player types:
+- Achiever
+- Killer
+
+##### Target Hardware
+Platform(s): Desktop Firefox
 
 #### 1.4.1 User input
 | **Mouse & Keyboard** | |
