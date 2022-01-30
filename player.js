@@ -306,6 +306,15 @@ class Player {
 		if(this.slashing && millis() - this.millisAtStartSlash > this.millisPerSlash) {
 			this.slashing = false;
 		}
+		if(DEBUG_MODE) {
+			this.swordArea.setA(this.p5spr.position);
+			if(usingGamepad) {
+				this.radAimAtStartSlash = radians(this.p5spr.getDirection());
+			} else {
+				this.radAimAtStartSlash = this.vecAim.heading();
+			}
+			this.swordArea.setRotation(this.radAimAtStartSlash);
+		}
 	}
 
 	render() {
@@ -324,7 +333,7 @@ class Player {
 		ellipse(this.p5spr.position.x, this.p5spr.position.y, 64, 64);
 		this.p5spr.rotation = this.p5spr.getDirection();
 		drawSprite(this.p5spr);
-		if(DEBUG_MODE && this.canSlash){
+		if(DEBUG_MODE){
 			this.swordArea.drawDebug();
 			// drawArrow(this.p5spr.position, p5.Vector.mult(this.vecAim, 50), "red");
 		}
@@ -333,7 +342,7 @@ class Player {
 			push();
 			translate(this.p5spr.position.x, this.p5spr.position.y);
 			rotate(-0.25 * PI + HALF_PI)
-			rotate(map(millis() - this.millisAtStartSlash, 0, this.millisPerSlash, PI * 0.2, -PI * 0.2));
+			rotate(map(millis() - this.millisAtStartSlash, 0, this.millisPerSlash, PI * 0.3, -PI * 0.15));
 			rotate(this.radAimAtStartSlash);
 			image(imgKatana, 0, -imgKatana.height);
 			pop();
