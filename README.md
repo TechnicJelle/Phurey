@@ -1,6 +1,8 @@
 # Phurey: The Wild West Ninja
 Unfinished game made for the subject Game Design
 
+I am never making anything approaching or exceeding this scale in JavaScript ever again. This was not a fun developing experience.
+
 Phurey is a challenging 2D slasher/shooter inspired by Furi and many other games.
 
 ## 1. Game overview
