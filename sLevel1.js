@@ -37,6 +37,9 @@ class sLevel1 {
 			this.createTree(850, SCENE_H - 2100, 3.0);
 			enemies.add(new eDefault(SCENE_W/2+20, SCENE_H - 2200, -70));
 
+			enemies.add(new eDefault(SCENE_W/2-100, SCENE_H - 2700, 85));
+			enemies.add(new eDefault(SCENE_W/2+100, SCENE_H - 2700, 95));
+
 			//input hints
 			//keyboard+mouse
 			this.hintPlus = loadAnimation("assets/ui/plus.png");

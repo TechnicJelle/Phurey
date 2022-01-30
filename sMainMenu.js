@@ -15,7 +15,8 @@ class sMainMenu {
 
 		this.mousePressed = function () {
 			if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-				this.sceneManager.showNextScene();
+				SCENE_MANAGER.showNextScene();
+				currentLevel = 1;
 				removeElements();
 			}
 		};

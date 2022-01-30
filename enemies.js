@@ -5,18 +5,18 @@ class Enemies {
 
 	clear() {
 		this.group = new Group(); //for the sprites
-		this.array = new Array(); //for the actual enemy classes
+		this.array = new Set(); //for the actual enemy classes
 	}
 
 	add(enemy) {
 		this.group.add(enemy.p5spr);
-		this.array.push(enemy);
+		this.array.add(enemy);
 	}
 
 	kill(enemy) {
 		enemy.life = 0;
-		this.group.remove(enemy);
-		this.array.splice(this.array.indexOf(enemy));
+		this.group.remove(enemy.p5spr);
+		this.array.delete(enemy);
 		objPlayer.camShake(20);
 	}
 }

@@ -23,8 +23,8 @@ class Player {
 		//sword variables
 		this.vecAim = createVector(0, 0);
 		this.vecInputAim = createVector(0, 0);
-		let reachWidthHalf = 60;
-		let reach = 100;
+		let reachWidthHalf = 70;
+		let reach = 120;
 		this.swordArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -reach, reachWidthHalf, -reach);
 		this.millisAtStartSlash = 0;
 		this.millisPerSlash = 150;
@@ -284,7 +284,9 @@ class Player {
 		this.p5spr.collide(grpObstaclesSolid);
 		if(!this.dashing) {
 			this.p5spr.collide(grpObstaclesDashthrough);
-			this.p5spr.collide(enemies.group)
+			if(this.p5spr.overlap(enemies.group)) {
+				restartLevel();
+			}
 		}
 
 		//limit the player movements
@@ -371,11 +373,11 @@ class Player {
 		this.swordArea.setRotation(this.radAimAtStartSlash);
 		this.millisAtStartSlash = millis();
 
-		enemies.group.forEach(enemy => {
+		enemies.array.forEach(enemy => {
 			let hit = false;
 			let div = 8;
 			for (let i = 0; i < TWO_PI; i+=TWO_PI/div) {
-				let vec = enemy.position.copy().add(enemy.collider.radius * cos(i), enemy.collider.radius * sin(i));
+				let vec = enemy.p5spr.position.copy().add(enemy.p5spr.collider.radius * cos(i), enemy.p5spr.collider.radius * sin(i));
 				if(DEBUG_MODE) {
 					stroke(255, 0, 0);
 					strokeWeight(4);

@@ -36,6 +36,7 @@ let vecLeftStick;
 let gamepadConnectedAttempts = 0;
 let lastFramerates = [];
 let frameRateWarniningGiven = false;
+let currentLevel = 0;
 
 let usingGamepad;
 
@@ -89,24 +90,10 @@ function setup() {
 	if (GAMEPAD.init()) {
 	//sel = createSelect();
 	} else {
-	createP(
-		"Your browser does not support gamepads, please get the latest Firefox"
-	);
+		warnUser("Your browser does not support gamepads. Please get the latest Firefox");
 	}
 
-	objPlayer = new Player();
-	grpBackgroundTiles = new Group();
-	for (let i = -imgSand.width; i < SCENE_W + imgSand.width+2; i += imgSand.width - 1) {
-		for (let j = -imgSand.height; j < SCENE_H + imgSand.height+2; j += imgSand.height - 1) {
-			let space = createSprite(i, j);
-			space.addImage(imgSand);
-			grpBackgroundTiles.add(space);
-		}
-	}
-
-	grpObstaclesSolid = new Group();
-	grpObstaclesDashthrough = new Group();
-	enemies = new Enemies();
+	setupLevel();
 
 	SCENE_MANAGER = new SceneManager();
 	SCENE_MANAGER.addScene(sMainMenu);
@@ -229,4 +216,29 @@ function warnUser(text) {
 	h1.style("color", "#FF0000");
 	h1.style("font-family", "Helvetica, sans-serif");
 	h1.style("text-align", "center");
+}
+
+function setupLevel() {
+	//TODO: Improve this further. The game gets laggy the more often the level restarts
+	removeElements();
+	allSprites.clear();
+	objPlayer = new Player();
+	grpBackgroundTiles = new Group();
+	for (let i = -imgSand.width; i < SCENE_W + imgSand.width+2; i += imgSand.width - 1) {
+		for (let j = -imgSand.height; j < SCENE_H + imgSand.height+2; j += imgSand.height - 1) {
+			let space = createSprite(i, j);
+			space.addImage(imgSand);
+			grpBackgroundTiles.add(space);
+		}
+	}
+
+	grpObstaclesSolid = new Group();
+	grpObstaclesDashthrough = new Group();
+	enemies = new Enemies();
+}
+
+function restartLevel() {
+	setupLevel();
+	if(currentLevel == 1)
+		SCENE_MANAGER.showScene(sLevel1);
 }
