@@ -1,5 +1,5 @@
 # Phurey: The Wild West Ninja
-Game made for the subject Game Design
+Unfinished game made for the subject Game Design
 
 Phurey is a challenging 2D slasher/shooter inspired by Furi and many other games.
 
