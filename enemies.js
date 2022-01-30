@@ -17,5 +17,6 @@ class Enemies {
 		enemy.life = 0;
 		this.group.remove(enemy);
 		this.array.splice(this.array.indexOf(enemy));
+		objPlayer.camShake(20);
 	}
 }

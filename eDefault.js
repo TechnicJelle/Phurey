@@ -7,14 +7,30 @@ class eDefault {
 		this.p5spr.rotation = this.dirDeg = dirDeg;
 		this.p5spr.rotateToDirection = true;
 		if (DEBUG_MODE) this.p5spr.debug = true;
+		
+		//sight
+		let reachWidthHalf = 300;
+		let reach = 400;
+		this.viewArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -reach, reachWidthHalf, -reach);
+		this.viewArea.setA(this.p5spr.position);
 	}
 
 	update() {
-		// print("hello");
+		if(this.viewArea.pointCheck(objPlayer.p5spr.position)) {
+			this.viewArea.setA(this.p5spr.position);
+			this.p5spr.setSpeed(1, degrees(p5.Vector.sub(objPlayer.p5spr.position, this.p5spr.position).heading()));
+			this.viewArea.setRotation(radians(this.p5spr.getDirection()));
+			this.p5spr.collide(grpObstaclesSolid);
+		} else {
+			this.p5spr.setSpeed(0, 0);
+		}
 	}
 
 	render() {
 		drawSprite(this.p5spr);
-		if(DEBUG_MODE) drawArrow(this.p5spr.position, p5.Vector.fromAngle(radians(this.dirDeg)).setMag(50), color(255, 0, 0));
+		if(DEBUG_MODE) {
+			drawArrow(this.p5spr.position, p5.Vector.fromAngle(radians(this.dirDeg)).setMag(50), color(255, 0, 0));
+			this.viewArea.drawDebug();
+		}
 	}
 }

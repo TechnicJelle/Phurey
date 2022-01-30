@@ -8,7 +8,8 @@ class Player {
 		this.dashCollider = createSprite(0, 0);
 		this.dashCollider.setCollider("circle", 0, 0, 15);
 		
-		this.cameraShake = createVector(0, 0);
+		//TODO: https://kidscancode.org/godot_recipes/2d/screen_shake/
+		this.cameraShakeCurrentStrength = 0.0;
 
 		//movement variables
 		this.posAtStartDash = createVector(0, 0);
@@ -275,10 +276,10 @@ class Player {
 
 		//a camera is created automatically at the beginning
 		//set the camera position to the player position
-		camera.position.x = this.p5spr.position.x + this.cameraShake.x;
-		camera.position.y = this.p5spr.position.y + this.cameraShake.y;
+		camera.position.x = this.p5spr.position.x + random(this.cameraShakeCurrentStrength);
+		camera.position.y = this.p5spr.position.y + random(this.cameraShakeCurrentStrength);
 		
-		this.cameraShake.mult(0.9);
+		this.cameraShakeCurrentStrength *= 0.9;
 		
 		this.p5spr.collide(grpObstaclesSolid);
 		if(!this.dashing) {
@@ -340,7 +341,7 @@ class Player {
 	}
 	
 	camShake(strength) {
-		this.cameraShake.add(p5.Vector.random2D().setMag(strength));
+		this.cameraShakeCurrentStrength += strength;
 	}
 
 	requestSlash() {
