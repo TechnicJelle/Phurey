@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 8000;
-let DEBUG_MODE = true;
+let DEBUG_MODE = false;
 let SCENE_MANAGER;
 let GAMEPAD;
 
