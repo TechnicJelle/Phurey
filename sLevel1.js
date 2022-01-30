@@ -40,7 +40,12 @@ class sLevel1 {
 			enemies.add(new eDefault(SCENE_W/2-100, SCENE_H - 2700, 85));
 			enemies.add(new eDefault(SCENE_W/2+100, SCENE_H - 2700, 95));
 
+			enemies.add(new eShooter(SCENE_W/2, SCENE_H - 3500, -90));
+
+			enemies.add(new eShooter(SCENE_W/2-150, SCENE_H - 4000, -110));
+			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 4000, -80));
 			//input hints
+			//TODO: Implement "assets/ui/or.png"
 			//keyboard+mouse
 			this.hintPlus = loadAnimation("assets/ui/plus.png");
 

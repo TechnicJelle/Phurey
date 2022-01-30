@@ -14,9 +14,18 @@ class Enemies {
 	}
 
 	kill(enemy) {
-		enemy.life = 0;
+		enemy.p5spr.life = 0;
 		this.group.remove(enemy.p5spr);
 		this.array.delete(enemy);
-		objPlayer.camShake(20);
+	}
+
+	killSpr(enemySpr) {
+		enemySpr.life = 0;
+		this.array.forEach(enemy => {
+			if(enemy.p5spr.life == 0) {
+				this.kill(enemy);
+				objPlayer.camShake(10);
+			}
+		});
 	}
 }

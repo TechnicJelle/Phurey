@@ -23,9 +23,7 @@ class Player {
 		//sword variables
 		this.vecAim = createVector(0, 0);
 		this.vecInputAim = createVector(0, 0);
-		let reachWidthHalf = 70;
-		let reach = 120;
-		this.swordArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -reach, reachWidthHalf, -reach);
+		this.gamePadSwordArea();
 		this.millisAtStartSlash = 0;
 		this.millisPerSlash = 150;
 		this.millisBetweenSlashes = 600;
@@ -98,11 +96,19 @@ class Player {
 		});
 		GAMEPAD.bind(Gamepad.Event.TICK, function (gamepads) {
 			// gamepads were updated (around 60 times a second)
-			if (
+			let btnA =
 				gamepads[0].buttons[0].pressed ||
 				gamepads[0].buttons[0].touched ||
-				gamepads[0].buttons[0].value > 0
-			)
+				gamepads[0].buttons[0].value > 0;
+			let btnL1 =
+				gamepads[0].buttons[4].pressed ||
+				gamepads[0].buttons[4].touched ||
+				gamepads[0].buttons[4].value > 0;
+			let btnL2 =
+				gamepads[0].buttons[6].pressed ||
+				gamepads[0].buttons[6].touched ||
+				gamepads[0].buttons[6].value > 0;
+			if (btnA || btnL1)
 				objPlayer.requestDash();
 		});
 	}
@@ -362,6 +368,7 @@ class Player {
 	}
 
 	slash() {
+		objPlayer.camShake(5);
 		this.slashing = true;
 		this.canSlash = false;
 		this.swordArea.setA(this.p5spr.position);
@@ -390,7 +397,19 @@ class Player {
 			}
 			if(hit) {
 				enemies.kill(enemy);
+				objPlayer.camShake(20);
 			}
 		});
+	}
+
+	gamePadSwordArea() {
+		if(usingGamepad) {
+			var reachWidthHalf = 100;
+			var reach = 150;
+		} else {
+			var reachWidthHalf = 70;
+			var reach = 120;
+		}
+		this.swordArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -reach, reachWidthHalf, -reach);
 	}
 }

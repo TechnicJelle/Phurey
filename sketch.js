@@ -142,7 +142,6 @@ document.oncontextmenu = function () {
 };
 
 function mousePressed() {
-	objPlayer.camShake(5);
 	SCENE_MANAGER.handleEvent("mousePressed");
 	// return false;
 }
@@ -205,6 +204,7 @@ function setUsingGamepad(bool) {
 	if (usingGamepad != bool) {
 		usingGamepad = bool;
 		print("Using gamepad: " + bool);
+		objPlayer.gamePadSwordArea();
 	}
 }
 
