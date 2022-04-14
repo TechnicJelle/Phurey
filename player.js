@@ -7,6 +7,8 @@ class Player {
 
 		this.dashCollider = createSprite(0, 0);
 		this.dashCollider.setCollider("circle", 0, 0, 15);
+
+		this.health = 20; //basically 2 hp
 		
 		//TODO: https://kidscancode.org/godot_recipes/2d/screen_shake/
 		this.cameraShakeCurrentStrength = 0.0;
@@ -176,7 +178,9 @@ class Player {
 		
 		//if y position is less than 100 go to the next level
 		if(this.p5spr.position.y < 100) {
-			currentLevel++;
+			if(currentLevel == 1) {
+				currentLevel = 2;
+			}
 			restartLevel()
 		}
 	}
@@ -297,7 +301,8 @@ class Player {
 		if(!this.dashing) {
 			this.p5spr.collide(grpObstaclesDashthrough);
 			if(this.p5spr.overlap(enemies.group)) {
-				restartLevel();
+				this.health -= 1;
+				if(this.health <= 0) restartLevel();
 			}
 		}
 
@@ -403,7 +408,10 @@ class Player {
 			}
 			if(hit) {
 				enemies.kill(enemy);
-				objPlayer.camShake(20);
+				if(enemy.constructor.name == "Bullet")
+					objPlayer.camShake(10);
+				else
+					objPlayer.camShake(20);
 			}
 		});
 	}

@@ -1,9 +1,9 @@
 class eShooter extends eDefault {
-	constructor(x, y, dirDeg, reachWidthHalf = 300) {
+	constructor(x, y, dirDeg, reach = 550, reachWidthHalf = 300) {
 		super(x, y, dirDeg)
 		
 		//sight
-		this.reach = 550;
+		this.reach = reach;
 		this.viewArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -this.reach, reachWidthHalf, -this.reach);
 		this.viewArea.setA(this.p5spr.position);
 
@@ -13,9 +13,9 @@ class eShooter extends eDefault {
 
 	update() {
 		//movement
-		if(this.viewArea.pointCheck(objPlayer.p5spr.position)) {
-			let dis = p5.Vector.dist(this.p5spr.position, objPlayer.p5spr.position);
-			this.p5spr.setSpeed(map(dis, 0, this.reach, 5, 0.1),
+		if(this.viewArea.pointCheck(objPlayer.p5spr.position)) { //is player in view
+			let dis = p5.Vector.dist(this.p5spr.position, objPlayer.p5spr.position); //distance to player
+			this.p5spr.setSpeed(constrain(map(dis, 0, this.reach, 5, 0.1), 0.1, 5), //set speed backwards
 				degrees(p5.Vector.sub(objPlayer.p5spr.position, this.p5spr.position).heading())+180);
 			this.millisBetweenShots = map(dis, 0, this.reach, 1200, 800);
 			this.p5spr.collide(grpObstaclesSolid);

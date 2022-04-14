@@ -1,5 +1,5 @@
 class eDefault {
-	constructor(x, y, dirDeg) {
+	constructor(x, y, dirDeg, reach = 420, reachWidthHalf = 300) {
 		this.p5spr = createSprite(x, y, 64, 64);
 		this.p5spr.addImage(imgEnemyDefault);
 		this.p5spr.setCollider("circle", 0, 0, 24);
@@ -10,8 +10,6 @@ class eDefault {
 		if (DEBUG_MODE) this.p5spr.debug = true;
 		
 		//sight
-		let reachWidthHalf = 300;
-		let reach = 420;
 		this.viewArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -reach, reachWidthHalf, -reach);
 		this.viewArea.setA(this.p5spr.position);
 	}

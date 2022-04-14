@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 6000;
-let DEBUG_MODE = true;
+let DEBUG_MODE = false;
 let SCENE_MANAGER;
 let GAMEPAD;
 
@@ -44,6 +44,7 @@ function preload() {
 	//create a sprite and add the 3 animations
 	imgCrate = loadImage("assets/RTS_Crate.png");
 	imgSand = loadImage("assets/aerial_beach_01_diff_1k.jpg");
+	imgRedRock = loadImage("assets/sandstone_cracks_diff_1k.jpg");
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
 	imgEnemyDefault = loadImage("assets/eDefault.png");
 	imgRiver = loadImage("assets/platform.png");
@@ -93,7 +94,7 @@ function setup() {
 		warnUser("Your browser does not support gamepads. Please get the latest Firefox");
 	}
 
-	setupLevel();
+	setupLevel(imgSand);
 
 	SCENE_MANAGER = new SceneManager();
 	SCENE_MANAGER.addScene(sMainMenu);
@@ -122,6 +123,7 @@ function draw() {
 		}
 	}
 	if (DEBUG_MODE) text(int(frameRate()), 10, 10);
+	text(objPlayer.health, 10, 30);
 }
 
 function drawArrow(base, vec, myColor) {
@@ -220,16 +222,16 @@ function warnUser(text) {
 	h1.style("text-align", "center");
 }
 
-function setupLevel() {
+function setupLevel(bkgrImg) {
 	//TODO: Improve this further. The game gets laggy the more often the level restarts
 	removeElements();
 	allSprites.clear();
 	objPlayer = new Player();
 	grpBackgroundTiles = new Group();
-	for (let i = -imgSand.width; i < SCENE_W + imgSand.width+2; i += imgSand.width - 1) {
-		for (let j = -imgSand.height; j < SCENE_H + imgSand.height+2; j += imgSand.height - 1) {
+	for (let i = -bkgrImg.width; i < SCENE_W + bkgrImg.width+2; i += bkgrImg.width - 1) {
+		for (let j = -bkgrImg.height; j < SCENE_H + bkgrImg.height+2; j += bkgrImg.height - 1) {
 			let space = createSprite(i, j);
-			space.addImage(imgSand);
+			space.addImage(bkgrImg);
 			grpBackgroundTiles.add(space);
 		}
 	}
@@ -240,11 +242,14 @@ function setupLevel() {
 }
 
 function restartLevel() {
-	setupLevel();
-	if(currentLevel == 1)
+	if(currentLevel == 1) {
+		setupLevel(imgSand);
 		SCENE_MANAGER.showScene(sLevel1);
-	// if(currentLevel == 2)
-	// 	SCENE_MANAGER.showScene(sLevel2);
+	}
+	if(currentLevel == 2) {
+		setupLevel(imgRedRock);
+		SCENE_MANAGER.showScene(sLevel2);
+	}
 }
 
 function createTree(x, y, scale) {
