@@ -58,11 +58,15 @@ function setup() {
 	createCanvas(800, 800);
 	frameRate(60); //framerate should be being limited to 60, but it isn't
 
+	//TODO: fix this; it is broken
+	let mainDOM = document.getElementsByTagName('main')[0];
 	let h1 = createElement("h1", "Phurey");
+	h1.parent(mainDOM);
 	h1.style("color", "#FFFFFF");
 	h1.style("font-family", "Helvetica, sans-serif");
 	h1.style("text-align", "center");
 	let p = createP("Phurey is a challenging top-down slasher/shooter");
+	p.parent(mainDOM);
 	p.style("color", "#FFFFFF");
 	p.style("font-family", "Helvetica, sans-serif");
 	p.style("text-align", "center");

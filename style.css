@@ -1,13 +1,17 @@
 html, body {
-  margin: 0;
-  padding: 0;
-  background-color: #333333;
+	margin: 0;
+	padding: 0;
+	background-color: #333333;
+	width: 100%;
+	height: 100%;
+
+	/* center horizontally and vertically */
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 canvas {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+	display: block;
+	margin-bottom: 100px;
 }
