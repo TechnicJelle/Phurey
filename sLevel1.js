@@ -33,22 +33,22 @@ class sLevel1 {
 			this.createRiver(1100, riverHeight);
 			
 
-			this.createTree(200, SCENE_H - 2200, 2.4);
-			this.createTree(860, SCENE_H - 2100, 3.0);
-			this.createCrate(50, SCENE_H - 2150, 0.3);
-			this.createCrate(920, SCENE_H - 1900, 0.4);
+			createTree(200, SCENE_H - 2200, 2.4);
+			createTree(860, SCENE_H - 2100, 3.0);
+			createCrate(50, SCENE_H - 2150, 0.3);
+			createCrate(920, SCENE_H - 1900, 0.4);
 
 
 			
-			this.createCrate(70, SCENE_H - 2886, 0.3);
-			this.createCrate(199, SCENE_H - 3017, 0.35);
-			this.createCrate(60, SCENE_H - 3103, 0.32);
-			this.createTree(870, SCENE_H - 3052, 2.6);
+			createCrate(70, SCENE_H - 2886, 0.3);
+			createCrate(199, SCENE_H - 3017, 0.35);
+			createCrate(60, SCENE_H - 3103, 0.32);
+			createTree(870, SCENE_H - 3052, 2.6);
 
 			
 			for(let i = 3500; i < SCENE_H + 1000; i += 500) {
-				this.createTree(0 + random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
-				this.createTree(SCENE_W - random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
+				createTree(0 + random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
+				createTree(SCENE_W - random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
 			}
 
 
@@ -173,5 +173,14 @@ class sLevel1 {
 			objPlayer.update();
 			objPlayer.render();
 		};
+	}
+
+	createRiver(x, y) {
+		let river = createSprite(x, y);
+		river.addImage(imgRiver);
+		// river.setCollider("rectangle", 0, 0, imgRiver.width, imgRiver.height);
+		river.setDefaultCollider();
+		if (DEBUG_MODE) river.debug = true;
+		grpObstaclesDashthrough.add(river);
 	}
 }

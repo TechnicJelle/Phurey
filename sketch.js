@@ -98,7 +98,7 @@ function setup() {
 	SCENE_MANAGER = new SceneManager();
 	SCENE_MANAGER.addScene(sMainMenu);
 	SCENE_MANAGER.addScene(sLevel1);
-	SCENE_MANAGER.addScene(sLevel2);
+	// SCENE_MANAGER.addScene(sLevel2);
 
 	SCENE_MANAGER.showNextScene();
 }
@@ -243,19 +243,8 @@ function restartLevel() {
 	setupLevel();
 	if(currentLevel == 1)
 		SCENE_MANAGER.showScene(sLevel1);
-	if(currentLevel == 2)
-		SCENE_MANAGER.showScene(sLevel2);
-}
-
-
-
-function createRiver(x, y) {
-	let river = createSprite(x, y);
-	river.addImage(imgRiver);
-	// river.setCollider("rectangle", 0, 0, imgRiver.width, imgRiver.height);
-	river.setDefaultCollider();
-	if (DEBUG_MODE) river.debug = true;
-	grpObstaclesDashthrough.add(river);
+	// if(currentLevel == 2)
+	// 	SCENE_MANAGER.showScene(sLevel2);
 }
 
 function createTree(x, y, scale) {
