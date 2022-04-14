@@ -34,7 +34,25 @@ class sLevel1 {
 			
 
 			this.createTree(200, SCENE_H - 2200, 2.4);
-			this.createTree(850, SCENE_H - 2100, 3.0);
+			this.createTree(860, SCENE_H - 2100, 3.0);
+			this.createCrate(50, SCENE_H - 2150, 0.3);
+			this.createCrate(920, SCENE_H - 1900, 0.4);
+
+
+			
+			this.createCrate(70, SCENE_H - 2886, 0.3);
+			this.createCrate(199, SCENE_H - 3017, 0.35);
+			this.createCrate(60, SCENE_H - 3103, 0.32);
+			this.createTree(870, SCENE_H - 3052, 2.6);
+
+			
+			for(let i = 3500; i < SCENE_H + 1000; i += 500) {
+				this.createTree(0 + random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
+				this.createTree(SCENE_W - random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
+			}
+
+
+
 			enemies.add(new eDefault(SCENE_W/2+20, SCENE_H - 2200, -70));
 
 			enemies.add(new eDefault(SCENE_W/2-100, SCENE_H - 2700, 85));
@@ -42,8 +60,8 @@ class sLevel1 {
 
 			enemies.add(new eShooter(SCENE_W/2, SCENE_H - 3500, -90));
 
-			enemies.add(new eShooter(SCENE_W/2-150, SCENE_H - 4000, -110));
-			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 4000, -80));
+			enemies.add(new eShooter(SCENE_W/2-150, SCENE_H - 5000, -120, 450));
+			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 5000, -70, 450));
 			//input hints
 			//TODO: Implement "assets/ui/or.png"
 			//keyboard+mouse
@@ -155,23 +173,5 @@ class sLevel1 {
 			objPlayer.update();
 			objPlayer.render();
 		};
-	}
-
-	createRiver(x, y) {
-		let river = createSprite(x, y);
-		river.addImage(imgRiver);
-		// river.setCollider("rectangle", 0, 0, imgRiver.width, imgRiver.height);
-		river.setDefaultCollider();
-		if (DEBUG_MODE) river.debug = true;
-		grpObstaclesDashthrough.add(river);
-	}
-	
-	createTree(x, y, scale) {
-		let tree = createSprite(x, y);
-		tree.addImage(imgTree);
-		tree.scale = scale;
-		tree.setCollider("circle", 0, 0, 50);
-		if (DEBUG_MODE) tree.debug = true;
-		grpObstaclesSolid.add(tree);
 	}
 }

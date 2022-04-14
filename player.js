@@ -173,6 +173,12 @@ class Player {
 			this.vecAim = p5.Vector.sub(this.vecInputAim, this.p5spr.position).normalize();
 		}
 		this.updateMovement();
+		
+		//if y position is less than 100 go to the next level
+		if(this.p5spr.position.y < 100) {
+			currentLevel++;
+			restartLevel()
+		}
 	}
 
 	updateMovement() {
@@ -405,10 +411,10 @@ class Player {
 	gamePadSwordArea() {
 		if(usingGamepad) {
 			var reachWidthHalf = 100;
-			var reach = 150;
+			var reach = 200;
 		} else {
 			var reachWidthHalf = 70;
-			var reach = 120;
+			var reach = 150;
 		}
 		this.swordArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -reach, reachWidthHalf, -reach);
 	}

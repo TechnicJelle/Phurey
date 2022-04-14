@@ -1,9 +1,8 @@
 class eShooter extends eDefault {
-	constructor(x, y, dirDeg) {
+	constructor(x, y, dirDeg, reachWidthHalf = 300) {
 		super(x, y, dirDeg)
 		
 		//sight
-		let reachWidthHalf = 300;
 		this.reach = 550;
 		this.viewArea = new hbTriangle(this.p5spr.x, this.p5spr.y, -reachWidthHalf, -this.reach, reachWidthHalf, -this.reach);
 		this.viewArea.setA(this.p5spr.position);
