@@ -5,3 +5,4 @@ aerial_beach_01_diff_1k			https://polyhaven.com/a/aerial_beach_01
 rock_pitted_mossy_diff_1k		https://polyhaven.com/a/rock_pitted_mossy
 RTS_Crate						https://opengameart.org/content/2d-wooden-box
 most other sprites				p5.play default assets
+Power Ups						https://opengameart.org/content/pickup-items-icons

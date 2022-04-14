@@ -8,6 +8,9 @@ class sLevel2 {
 			//level content
 			enemies.clear();
 			grpObstaclesSolid.clear();
+			powerups.clear();
+
+			powerups.add(new puShield(SCENE_W/2, SCENE_H -50));
 			
 			
 
@@ -62,6 +65,11 @@ class sLevel2 {
 			enemies.array.forEach((enemy) => {
 				enemy.update();
 				enemy.render();
+			});
+
+			powerups.array.forEach((powerup) => {
+				powerup.update();
+				powerup.render();
 			});
 
 			stroke(255);

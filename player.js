@@ -7,10 +7,7 @@ class Player {
 
 		this.dashCollider = createSprite(0, 0);
 		this.dashCollider.setCollider("circle", 0, 0, 15);
-
-		this.health = 20; //basically 2 hp
 		
-		//TODO: https://kidscancode.org/godot_recipes/2d/screen_shake/
 		this.cameraShakeCurrentStrength = 0.0;
 
 		//movement variables
@@ -32,6 +29,14 @@ class Player {
 		this.slashing = false;
 		this.canSlash = true;
 		this.radAimAtStartSlash = 0;
+
+		//powerups
+
+		//health powerup
+		this.health = 1; //start off at only one
+		this.maxHealth = 40;
+		this.millisAtGetPUHealth = 0;
+		this.millisPUHealthDuration = 6000;
 
 		GAMEPAD.bind(Gamepad.Event.BUTTON_DOWN, function (e) {
 			setUsingGamepad(true);
@@ -176,14 +181,34 @@ class Player {
 		}
 		this.updateMovement();
 		
-		//if y position is less than 100 go to the next level
 		if(this.p5spr.position.y < 100) {
 			if(currentLevel == 1) {
 				currentLevel = 2;
 			}
 			restartLevel()
 		}
+		
+		this.p5spr.overlap(powerups.group, gotPowerUp);
+		
+		function gotPowerUp(player, powerup) {
+			let hitPowerups = powerups.killSpr(powerup);
+			let hitPowerup = hitPowerups[0];
+			print(hitPowerup.constructor.name);
+			// print(hitPowerups);
+			switch(hitPowerup.constructor.name) {
+				case "puShield":
+					objPlayer.health = objPlayer.maxHealth;
+					objPlayer.millisAtGetPUHealth = millis();
+					break;
+			}
+		}
+
+		if(this.health != 1 && millis() - this.millisAtGetPUHealth > this.millisPUHealthDuration) {
+			this.health = 1;
+		}
 	}
+	
+
 
 	updateMovement() {
 		this.dashCharge = constrain(
@@ -296,14 +321,30 @@ class Player {
 		camera.position.y = this.p5spr.position.y + random(this.cameraShakeCurrentStrength);
 		
 		this.cameraShakeCurrentStrength *= 0.9;
+
+		let collidingWithEnemy = false;
 		
 		this.p5spr.collide(grpObstaclesSolid);
 		if(!this.dashing) {
 			this.p5spr.collide(grpObstaclesDashthrough);
-			if(this.p5spr.overlap(enemies.group)) {
+			if(this.p5spr.overlap(enemies.group, collidedWithEnemy)) {
+				collidingWithEnemy = true;
 				this.health -= 1;
 				if(this.health <= 0) restartLevel();
 			}
+
+			function collidedWithEnemy(player, enemy) {
+				// print(enemy);
+				if(enemy.collider.radius == 12) {
+					enemies.killSpr(enemy);
+					objPlayer.camShake(30);
+					if(objPlayer.health > 1)
+						objPlayer.health = 2;
+				}
+			}
+		}
+		if(!collidingWithEnemy && this.health != this.maxHealth && this.health > 1) {
+			this.health = 1;
 		}
 
 		//limit the player movements
@@ -349,7 +390,14 @@ class Player {
 		if (this.dashing) {
 			fill(0, 255, 0, 64);
 		}
+		if(this.health > 1) {
+			stroke(0, 0, 255, map(this.health, 1, this.maxHealth, 0, 255));
+			strokeWeight(map(noise(millis() * 0.01), 0, 1, 5, 7));
+		} else {
+			noStroke();
+		}
 		ellipse(this.p5spr.position.x, this.p5spr.position.y, 64, 64);
+
 		this.p5spr.rotation = this.p5spr.getDirection();
 		drawSprite(this.p5spr);
 		if(DEBUG_MODE){

@@ -18,6 +18,7 @@ let objPlayer;
 let grpBackgroundTiles; //background group
 let grpObstaclesSolid;
 let grpObstaclesDashthrough;
+let powerups;
 let enemies;
 
 //options
@@ -50,6 +51,7 @@ function preload() {
 	imgRiver = loadImage("assets/platform.png");
 	imgTree = loadImage("assets/cloud_breathing0004.png");
 	imgKatana = loadImage("assets/katana.png");
+	imgPUShield = loadImage("assets/PowerUp_07.png");
 }
 
 function setup() {
@@ -122,8 +124,18 @@ function draw() {
 			frameRateWarniningGiven = true;
 		}
 	}
-	if (DEBUG_MODE) text(int(frameRate()), 10, 10);
-	text(objPlayer.health, 10, 30);
+	if (DEBUG_MODE) {
+		noStroke();
+		text(int(frameRate()), 10, 10);
+		text(objPlayer.health, 10, 30);
+		text(millis(), 10, 50);
+	}
+
+	if(objPlayer.health > 1) {
+		stroke(0, 0, 255);
+		strokeWeight(10);
+		line(0, height - 10, map(millis() - objPlayer.millisAtGetPUHealth, 0, objPlayer.millisPUHealthDuration, width, 0), height - 10);
+	}
 }
 
 function drawArrow(base, vec, myColor) {
@@ -238,6 +250,7 @@ function setupLevel(bkgrImg) {
 
 	grpObstaclesSolid = new Group();
 	grpObstaclesDashthrough = new Group();
+	powerups = new Powerups();
 	enemies = new Enemies();
 }
 
