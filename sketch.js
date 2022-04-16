@@ -52,6 +52,7 @@ function preload() {
 	imgTree = loadImage("assets/cloud_breathing0004.png");
 	imgKatana = loadImage("assets/katana.png");
 	imgPUShield = loadImage("assets/PowerUp_07.png");
+	imgPUSword = loadImage("assets/PowerUp_08.png");
 }
 
 function setup() {
@@ -139,6 +140,12 @@ function draw() {
 		stroke(0, 0, 255);
 		strokeWeight(10);
 		line(0, height - 10, map(millis() - objPlayer.millisAtGetPUHealth, 0, objPlayer.millisPUHealthDuration, width, 0), height - 10);
+	}
+
+	if(objPlayer.millisBetweenSlashes != objPlayer.millisBetweenSlashesDefault) {
+		stroke(255, 128, 64);
+		strokeWeight(10);
+		line(0, height - 25, map(millis() - objPlayer.millisAtGetPUSword, 0, objPlayer.millisPUSwordDuration, width, 0), height - 25);
 	}
 }
 

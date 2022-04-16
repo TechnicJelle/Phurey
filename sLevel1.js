@@ -1,6 +1,7 @@
 class sLevel1 {
 	constructor() {
 		this.enter = function () {
+			SCENE_H = 6000;
 			objPlayer.p5spr.position.x = SCENE_W / 2;
 			objPlayer.p5spr.position.y = SCENE_H - 10;
 			// objPlayer.p5spr.position.y = 200;

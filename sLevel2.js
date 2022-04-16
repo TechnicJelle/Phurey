@@ -1,8 +1,10 @@
 class sLevel2 {
 	constructor() {
 		this.enter = function () {
+			SCENE_H = 10000;
 			objPlayer.p5spr.position.x = SCENE_W / 2;
 			objPlayer.p5spr.position.y = SCENE_H - height/2 - 100;
+			// objPlayer.p5spr.position.y = SCENE_H - 4000;
 			objPlayer.p5spr.addSpeed(10, -90);
 
 			//level content
@@ -33,9 +35,28 @@ class sLevel2 {
 
 
 			
-			enemies.add(new eShooter(SCENE_W/2, SCENE_H - 3000, -90, 500));
-			enemies.add(new eShooter(SCENE_W/2-350, SCENE_H - 3000, -120, 500));
-			enemies.add(new eShooter(SCENE_W/2+350, SCENE_H - 3000, -70, 500));
+			enemies.add(new eShooter(SCENE_W/2-150, SCENE_H - 3100, -120, 600, 600));
+			enemies.add(new eShooter(SCENE_W/2, SCENE_H - 3500, -90, 1000, 600));
+			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 3100, -70, 600, 600));
+
+			
+			powerups.add(new puSword(SCENE_W/2, SCENE_H -4000));
+
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 4500, 90, 200, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 4600, 90, 300, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 4700, 90, 400, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 4800, 90, 500, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 4900, 90, 600, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 5000, 90, 700, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 5100, 90, 800, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 5200, 90, 900, 400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 5300, 90, 1000,400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 5400, 90, 1100,400));
+			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 5500, 90, 1200,400));
+
+			enemies.add(new eShooter(SCENE_W/2-150, SCENE_H - 5000, -120, 600, 600));
+			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 5000, -70, 600, 600));
+
 
 
 			

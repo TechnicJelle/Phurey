@@ -15,8 +15,9 @@ class eShooter extends eDefault {
 		//movement
 		if(this.viewArea.pointCheck(objPlayer.p5spr.position)) { //is player in view
 			let dis = p5.Vector.dist(this.p5spr.position, objPlayer.p5spr.position); //distance to player
+			let p = p5.Vector.add(objPlayer.p5spr.position, p5.Vector.mult(objPlayer.p5spr.velocity, 3)); //player position + velocity, for leading shots
 			this.p5spr.setSpeed(constrain(map(dis, 0, this.reach, 5, 0.1), 0.1, 5), //set speed backwards
-				degrees(p5.Vector.sub(objPlayer.p5spr.position, this.p5spr.position).heading())+180);
+				degrees(p5.Vector.sub(p, this.p5spr.position).heading())+180);
 			this.millisBetweenShots = map(dis, 0, this.reach, 1200, 800);
 			this.p5spr.collide(grpObstaclesSolid);
 			this.p5spr.collide(grpObstaclesDashthrough);

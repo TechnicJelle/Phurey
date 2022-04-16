@@ -25,7 +25,8 @@ class Player {
 		this.gamePadSwordArea();
 		this.millisAtStartSlash = 0;
 		this.millisPerSlash = 150;
-		this.millisBetweenSlashes = 600;
+		this.millisBetweenSlashesDefault = 600;
+		this.millisBetweenSlashes = this.millisBetweenSlashesDefault;
 		this.slashing = false;
 		this.canSlash = true;
 		this.radAimAtStartSlash = 0;
@@ -36,7 +37,11 @@ class Player {
 		this.health = 1; //start off at only one
 		this.maxHealth = 40;
 		this.millisAtGetPUHealth = 0;
-		this.millisPUHealthDuration = 6000;
+		this.millisPUHealthDuration = 10000;
+		
+		//sword
+		this.millisAtGetPUSword = 0;
+		this.millisPUSwordDuration = 4000;
 
 		GAMEPAD.bind(Gamepad.Event.BUTTON_DOWN, function (e) {
 			setUsingGamepad(true);
@@ -200,15 +205,21 @@ class Player {
 					objPlayer.health = objPlayer.maxHealth;
 					objPlayer.millisAtGetPUHealth = millis();
 					break;
+				case "puSword":
+					objPlayer.millisBetweenSlashes = 50;
+					objPlayer.millisAtGetPUSword = millis();
+					break;
 			}
 		}
 
 		if(this.health != 1 && millis() - this.millisAtGetPUHealth > this.millisPUHealthDuration) {
 			this.health = 1;
 		}
+		if(this.millisBetweenSlashes != this.millisBetweenSlashesDefault && millis() - this.millisAtGetPUSword > this.millisPUSwordDuration) {
+			this.millisBetweenSlashes = this.millisBetweenSlashesDefault;
+		}
 	}
 	
-
 
 	updateMovement() {
 		this.dashCharge = constrain(
