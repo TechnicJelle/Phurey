@@ -1,10 +1,9 @@
 class sLevel2 {
 	constructor() {
 		this.enter = function () {
-			SCENE_H = 10000;
 			objPlayer.p5spr.position.x = SCENE_W / 2;
-			objPlayer.p5spr.position.y = SCENE_H - height/2 - 100;
-			// objPlayer.p5spr.position.y = SCENE_H - 4000;
+			// objPlayer.p5spr.position.y = SCENE_H - height/2 - 100;
+			objPlayer.p5spr.position.y = SCENE_H - 3800;
 			objPlayer.p5spr.addSpeed(10, -90);
 
 			//level content
@@ -40,7 +39,7 @@ class sLevel2 {
 			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 3100, -70, 600, 600));
 
 			
-			powerups.add(new puSword(SCENE_W/2, SCENE_H -4000));
+			powerups.add(new puSword(SCENE_W/2, SCENE_H - 4000));
 
 			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 4500, 90, 200, 400));
 			enemies.add(new eDefault(SCENE_W/2, SCENE_H - 4600, 90, 300, 400));
@@ -57,6 +56,8 @@ class sLevel2 {
 			enemies.add(new eShooter(SCENE_W/2-150, SCENE_H - 5000, -120, 600, 600));
 			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 5000, -70, 600, 600));
 
+
+			powerups.add(new puShield(SCENE_W/2, SCENE_H - 6000));
 
 
 			

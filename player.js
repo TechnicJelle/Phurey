@@ -43,6 +43,11 @@ class Player {
 		this.millisAtGetPUSword = 0;
 		this.millisPUSwordDuration = 4000;
 
+		//speed CANCELLED
+		// this.millisAtGetPUSpeed = 0;
+		// this.millisPUSpeedDuration = 7000;
+		// this.playerCurrentTopSpeed = PLAYER_TOP_SPEED;
+
 		GAMEPAD.bind(Gamepad.Event.BUTTON_DOWN, function (e) {
 			setUsingGamepad(true);
 			// e.control of GAMEPAD e.GAMEPAD pressed down
@@ -209,6 +214,9 @@ class Player {
 					objPlayer.millisBetweenSlashes = 50;
 					objPlayer.millisAtGetPUSword = millis();
 					break;
+				// case "puSpeed":
+				// 	objPlayer.plrMoveSpeed = PLAYER_TOP_SPEED * 2;
+				// 	objPlayer.millisAtGetPUSpeed = millis();
 			}
 		}
 
@@ -218,6 +226,9 @@ class Player {
 		if(this.millisBetweenSlashes != this.millisBetweenSlashesDefault && millis() - this.millisAtGetPUSword > this.millisPUSwordDuration) {
 			this.millisBetweenSlashes = this.millisBetweenSlashesDefault;
 		}
+		// if(this.this.playerCurrentTopSpeed > PLAYER_TOP_SPEED && millis() - this.millisAtGetPUSpeed > this.millisPUSpeedDuration) {
+		// 	this.this.playerCurrentTopSpeed = PLAYER_TOP_SPEED;
+		// }
 	}
 	
 

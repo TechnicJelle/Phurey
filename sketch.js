@@ -53,6 +53,7 @@ function preload() {
 	imgKatana = loadImage("assets/katana.png");
 	imgPUShield = loadImage("assets/PowerUp_07.png");
 	imgPUSword = loadImage("assets/PowerUp_08.png");
+	// imgPUSpeed = loadImage("assets/PowerUp_05b.png"); CANCELLED
 }
 
 function setup() {
@@ -147,6 +148,12 @@ function draw() {
 		strokeWeight(10);
 		line(0, height - 25, map(millis() - objPlayer.millisAtGetPUSword, 0, objPlayer.millisPUSwordDuration, width, 0), height - 25);
 	}
+
+	// if(objPlayer.plrMoveSpeed > PLAYER_TOP_SPEED) {
+	// 	stroke(0, 255, 0);
+	// 	strokeWeight(10);
+	// 	line(0, height - 40, map(millis() - objPlayer.millisAtGetPUSpeed, 0, objPlayer.millisPUSpeedDuration, width, 0), height - 40);
+	// }
 }
 
 function drawArrow(base, vec, myColor) {
@@ -267,10 +274,12 @@ function setupLevel(bkgrImg) {
 
 function restartLevel() {
 	if(currentLevel == 1) {
+		SCENE_H = 6000;
 		setupLevel(imgSand);
 		SCENE_MANAGER.showScene(sLevel1);
 	}
 	if(currentLevel == 2) {
+		SCENE_H = 10000;
 		setupLevel(imgRedRock);
 		SCENE_MANAGER.showScene(sLevel2);
 	}
