@@ -255,6 +255,7 @@ function warnUser(text) {
 function setupLevel(bkgrImg) {
 	//TODO: Improve this further. The game gets laggy the more often the level restarts
 	removeElements();
+	allSprites.removeSprites();
 	allSprites.clear();
 	objPlayer = new Player();
 	grpBackgroundTiles = new Group();
@@ -279,7 +280,7 @@ function restartLevel() {
 		SCENE_MANAGER.showScene(sLevel1);
 	}
 	if(currentLevel == 2) {
-		SCENE_H = 10000;
+		SCENE_H = 9500;
 		setupLevel(imgRedRock);
 		SCENE_MANAGER.showScene(sLevel2);
 	}
