@@ -38,10 +38,13 @@ let gamepadConnectedAttempts = 0;
 let lastFramerates = [];
 let frameRateWarniningGiven = false;
 let currentLevel = 0;
+
+//score variables
+let strScore = "";
+let millisAtShowScore = 0;
+let MILLIS_TO_SHOW_SCORE_FOR = 5000;
 let totalEnemies = 0;
 let livingEnemies = 0;
-let strScore = "";
-
 let millisAtStartGame = 0;
 let millisAtStartLevel = 0;
 
@@ -150,11 +153,13 @@ function draw() {
 		text(millis() - millisAtStartLevel, 10, 70);
 	}
 	
-	textAlign(CENTER, CENTER);
-	textSize(32);
-	text(strScore, width/2, height - 50);
-	textAlign(LEFT, TOP);
-	textSize(16);
+	if (millis() - millisAtShowScore < MILLIS_TO_SHOW_SCORE_FOR) {
+		textAlign(CENTER, CENTER);
+		textSize(32);
+		text(strScore, width/2, height - 50);
+		textAlign(LEFT, TOP);
+		textSize(16);
+	}
 
 
 	if(objPlayer.health > 1) {
@@ -312,6 +317,7 @@ function restartLevel() {
 	strScore = totalEnemies - livingEnemies + "/" + totalEnemies + " Enemies killed\n";
 	strScore += "Time: " + millisToMinutesAndSeconds(millis() - millisAtStartLevel);
 	millisAtStartLevel = millis();
+	millisAtShowScore = millis();
 }
 
 function createTree(x, y, scale) {
