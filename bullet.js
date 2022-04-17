@@ -1,6 +1,7 @@
 class Bullet {
 	constructor(x, y, dirDeg) {
 		this.p5spr = createSprite(x, y, 64, 64);
+		this.p5spr.setCollider("circle", 0, 0, 24);
 		this.p5spr.addImage(imgPlayer);
 		this.p5spr.setCollider("circle", 0, 0, 24);
 		this.p5spr.scale = 0.5;

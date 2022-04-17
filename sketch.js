@@ -30,7 +30,7 @@ let PLAYER_SHORT_DASH = 30;
 let DRAG = 0.85;
 let MILLIS_FOR_FULL_DASH = 1000;
 let MILLIS_MINIMUM_FOR_DASH = 200;
-let MILLIS_BETWEEN_SHORT_DASHES = 500;
+let MILLIS_BETWEEN_SHORT_DASHES = 700;
 
 //variables that need to be remembered
 let vecLeftStick;
@@ -47,6 +47,8 @@ let totalEnemies = 0;
 let livingEnemies = 0;
 let millisAtStartGame = 0;
 let millisAtStartLevel = 0;
+let totalEnemiesKilled = 0;
+let totalEnemiesInGame = 0;
 
 let usingGamepad;
 
@@ -59,6 +61,7 @@ function preload() {
 	imgSpace = loadImage("assets/space.png");
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
 	imgEnemyDefault = loadImage("assets/eDefault.png");
+	imgEnemyShooter = loadImage("assets/eShooter.png");
 	imgRiver = loadImage("assets/platform.png");
 	imgTree = loadImage("assets/cloud_breathing0004.png");
 	imgKatana = loadImage("assets/katana.png");
@@ -200,6 +203,7 @@ function draw() {
 		text(objPlayer.health, 10, 30);
 		text(millis() - millisAtStartGame, 10, 50);
 		text(millis() - millisAtStartLevel, 10, 70);
+		text(livingEnemies + ", " + totalEnemies + ": " + (livingEnemies / totalEnemies), 10, 90);
 	}
 	
 	if (millis() - millisAtShowScore < MILLIS_TO_SHOW_SCORE_FOR) {

@@ -109,6 +109,9 @@ class sLevel1 {
 			this.hintGpDashLongLT.frameDelay = 60;
 
 			this.hintGpSlash = loadAnimation("assets/ui/Layout_X_dark.png")
+
+			this.hintBulletSlash = loadAnimation("assets/ui/bulletSlashTut1.png", "assets/ui/bulletSlashTut2.png");
+			this.hintBulletSlash.frameDelay = 25;
 		};
 
 		this.draw = function () {
@@ -173,6 +176,8 @@ class sLevel1 {
 				animation(this.hintMouseL, -150, 0);
 			}
 			pop();
+
+			animation(this.hintBulletSlash, SCENE_W / 2, SCENE_H - 3100);
 
 			objPlayer.update();
 			objPlayer.render();

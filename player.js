@@ -25,7 +25,7 @@ class Player {
 		this.gamePadSwordArea();
 		this.millisAtStartSlash = 0;
 		this.millisPerSlash = 150;
-		this.millisBetweenSlashesDefault = 600;
+		this.millisBetweenSlashesDefault = 500;
 		this.millisBetweenSlashes = this.millisBetweenSlashesDefault;
 		this.slashing = false;
 		this.canSlash = true;
@@ -196,6 +196,17 @@ class Player {
 		this.updateMovement();
 		
 		if(this.p5spr.position.y < 100) {
+			if(livingEnemies / totalEnemies > (1-0.6)) {
+				textAlign(CENTER, CENTER);
+				textSize(24);
+				stroke(0);
+				fill(255);
+				text("Defeat at least 60% of enemies to continue\n" +
+				"You have currently defeated " + (totalEnemies - livingEnemies) + " out of " + totalEnemies, SCENE_W / 2, 100);
+				return;
+			}
+
+			//hehe cope
 			if(currentLevel == 4) return;
 			if(currentLevel == 3) {
 				currentLevel = 4;
@@ -206,7 +217,10 @@ class Player {
 			if(currentLevel == 1) {
 				currentLevel = 2;
 			}
-			restartLevel()
+			
+			totalEnemiesKilled += totalEnemies - livingEnemies;
+			totalEnemiesInGame += totalEnemies;
+			restartLevel();
 		}
 		
 		this.p5spr.overlap(powerups.group, gotPowerUp);
@@ -435,6 +449,12 @@ class Player {
 			noStroke();
 		}
 		ellipse(this.p5spr.position.x, this.p5spr.position.y, 64, 64);
+
+		if(this.millisBetweenSlashes < this.millisBetweenSlashesDefault) {
+			stroke(255, 128, 64, 200);
+			strokeWeight(map(noise(millis() * 0.01), 0, 1, 4, 6));
+			ellipse(this.p5spr.position.x, this.p5spr.position.y, 42, 42);
+		}
 
 		this.p5spr.rotation = this.p5spr.getDirection();
 		drawSprite(this.p5spr);

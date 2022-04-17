@@ -61,8 +61,8 @@ class sLevel2 {
 
 			enemies.add(new eShooter(40, SCENE_H - 7210, 170, 1000, 300));
 
-			let count = 3;
-			let offset = 350;
+			let count = 4;
+			let offset = 370;
 			let io = (count - 1) * offset;
 			for (var i = 0; i <= io; i+= offset) {
 				enemies.add(new eDefault(SCENE_W/2-350, SCENE_H - 7290 - i, 75, 250, 400));

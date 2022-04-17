@@ -1,6 +1,7 @@
 class eShooter extends eDefault {
 	constructor(x, y, dirDeg, reach = 550, reachWidthHalf = 300) {
 		super(x, y, dirDeg)
+		this.p5spr.addImage(imgEnemyShooter);
 		
 		//sight
 		this.reach = reach;
@@ -36,7 +37,7 @@ class eShooter extends eDefault {
 
 		//shooting
 		if(millis() - this.millisAtLastShot > this.millisBetweenShots && this.viewArea.pointCheck(objPlayer.p5spr.position)) {
-			let spawnpos = this.p5spr.position.copy().add(p5.Vector.fromAngle(radians(this.p5spr.rotation+180)).mult(64));
+			let spawnpos = this.p5spr.position.copy().add(p5.Vector.fromAngle(radians(this.p5spr.rotation+180)).mult(58));
 			enemies.add(new Bullet(spawnpos.x, spawnpos.y, this.p5spr.rotation+180));
 			this.millisAtLastShot = millis();
 			

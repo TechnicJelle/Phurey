@@ -16,8 +16,9 @@ class sLevel4 {
 			livingEnemies = totalEnemies;
 
 			this.millisAtEndGame = millis();
-			this.strTotalTime = "The bandits were captured and brought to justice.\n\n";
-			this.strTotalTime += "Total Time: " + millisToMinutesAndSeconds(this.millisAtEndGame - millisAtStartGame);
+			this.strEndText = "The bandits were captured and brought to justice.\n\n";
+			this.strEndText += "Total enemies defeated: " + totalEnemiesKilled + " out of " + totalEnemiesInGame + "\n";
+			this.strEndText += "Total Time: " + millisToMinutesAndSeconds(this.millisAtEndGame - millisAtStartGame);
 		};
 
 		this.draw = function () {
@@ -52,7 +53,7 @@ class sLevel4 {
 			noStroke();
 			textAlign(CENTER, CENTER);
 			textSize(32);
-			text(this.strTotalTime, SCENE_W/2, SCENE_H / 2);
+			text(this.strEndText, SCENE_W/2, SCENE_H / 2);
 			textAlign(LEFT, TOP);
 			textSize(16);
 
