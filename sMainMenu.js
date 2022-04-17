@@ -17,6 +17,8 @@ class sMainMenu {
 			if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
 				SCENE_MANAGER.showNextScene();
 				currentLevel = 1;
+				millisAtStartGame = millis();
+				millisAtStartLevel = millis();
 				removeElements();
 			}
 		};

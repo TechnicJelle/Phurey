@@ -40,7 +40,10 @@ let frameRateWarniningGiven = false;
 let currentLevel = 0;
 let totalEnemies = 0;
 let livingEnemies = 0;
-let strScoreEnemies = "";
+let strScore = "";
+
+let millisAtStartGame = 0;
+let millisAtStartLevel = 0;
 
 let usingGamepad;
 
@@ -115,8 +118,8 @@ function setup() {
 	SCENE_MANAGER = new SceneManager();
 	SCENE_MANAGER.addScene(sMainMenu);
 	SCENE_MANAGER.addScene(sLevel1);
-	// SCENE_MANAGER.addScene(sLevel2);
-	// SCENE_MANAGER.addScene(sLevel3);
+	SCENE_MANAGER.addScene(sLevel2);
+	SCENE_MANAGER.addScene(sLevel3);
 
 	SCENE_MANAGER.showNextScene();
 }
@@ -143,12 +146,13 @@ function draw() {
 		noStroke();
 		text(int(frameRate()), 10, 10);
 		text(objPlayer.health, 10, 30);
-		text(millis(), 10, 50);
+		text(millis() - millisAtStartGame, 10, 50);
+		text(millis() - millisAtStartLevel, 10, 70);
 	}
 	
 	textAlign(CENTER, CENTER);
 	textSize(32);
-	text(strScoreEnemies, width/2, height - 50);
+	text(strScore, width/2, height - 50);
 	textAlign(LEFT, TOP);
 	textSize(16);
 
@@ -269,7 +273,7 @@ function warnUser(text) {
 }
 
 function setupLevel(bkgrImg) {
-	//TODO: Improve this further. The game gets laggy the more often the level restarts
+	//DONE?: Improve this further. The game gets laggy the more often the level restarts
 	removeElements();
 	allSprites.removeSprites();
 	allSprites.clear();
@@ -305,7 +309,9 @@ function restartLevel() {
 		setupLevel(imgMossySand);
 		SCENE_MANAGER.showScene(sLevel3);
 	}
-	strScoreEnemies = totalEnemies - livingEnemies + "/" + totalEnemies + " Enemies killed";
+	strScore = totalEnemies - livingEnemies + "/" + totalEnemies + " Enemies killed\n";
+	strScore += "Time: " + millisToMinutesAndSeconds(millis() - millisAtStartLevel);
+	millisAtStartLevel = millis();
 }
 
 function createTree(x, y, scale) {
@@ -324,4 +330,10 @@ function createCrate(x, y, scale) {
 	crate.setCollider("rectangle", 0, 0, imgCrate.width, imgCrate.height)
 	if (DEBUG_MODE) crate.debug = true;
 	grpObstaclesSolid.add(crate);
+}
+
+function millisToMinutesAndSeconds(millis) {
+	let minutes = floor(millis / 60000);
+	let seconds = floor((millis % 60000) / 1000);
+	return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 }
