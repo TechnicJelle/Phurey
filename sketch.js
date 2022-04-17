@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 6000;
-let DEBUG_MODE = false;
+let DEBUG_MODE = true;
 let SCENE_MANAGER;
 let GAMEPAD;
 
@@ -46,6 +46,7 @@ function preload() {
 	imgCrate = loadImage("assets/RTS_Crate.png");
 	imgSand = loadImage("assets/aerial_beach_01_diff_1k.jpg");
 	imgRedRock = loadImage("assets/sandstone_cracks_diff_1k.jpg");
+	imgMossySand = loadImage("assets/rock_pitted_mossy_diff_1k.jpg");
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
 	imgEnemyDefault = loadImage("assets/eDefault.png");
 	imgRiver = loadImage("assets/platform.png");
@@ -54,6 +55,10 @@ function preload() {
 	imgPUShield = loadImage("assets/PowerUp_07.png");
 	imgPUSword = loadImage("assets/PowerUp_08.png");
 	// imgPUSpeed = loadImage("assets/PowerUp_05b.png"); CANCELLED
+	imgBuilding1 = loadImage("assets/building1.png");
+	imgBuilding2 = loadImage("assets/building2.png");
+	imgBuilding3 = loadImage("assets/building3.png");
+	imgBuilding4 = loadImage("assets/building4.png");
 }
 
 function setup() {
@@ -108,6 +113,7 @@ function setup() {
 	SCENE_MANAGER.addScene(sMainMenu);
 	SCENE_MANAGER.addScene(sLevel1);
 	// SCENE_MANAGER.addScene(sLevel2);
+	// SCENE_MANAGER.addScene(sLevel3);
 
 	SCENE_MANAGER.showNextScene();
 }
@@ -283,6 +289,11 @@ function restartLevel() {
 		SCENE_H = 9500;
 		setupLevel(imgRedRock);
 		SCENE_MANAGER.showScene(sLevel2);
+	}
+	if(currentLevel == 3) {
+		SCENE_H = 9500;
+		setupLevel(imgMossySand);
+		SCENE_MANAGER.showScene(sLevel3);
 	}
 }
 

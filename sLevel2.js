@@ -2,8 +2,8 @@ class sLevel2 {
 	constructor() {
 		this.enter = function () {
 			objPlayer.p5spr.position.x = SCENE_W / 2;
-			objPlayer.p5spr.position.y = SCENE_H - height/2 - 100;
-			// objPlayer.p5spr.position.y = SCENE_H - 6500;
+			// objPlayer.p5spr.position.y = SCENE_H - height/2 - 100;
+			objPlayer.p5spr.position.y = 50;
 			objPlayer.p5spr.addSpeed(10, -90);
 
 			//level content

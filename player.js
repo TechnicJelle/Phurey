@@ -192,6 +192,9 @@ class Player {
 		this.updateMovement();
 		
 		if(this.p5spr.position.y < 100) {
+			if(currentLevel == 2) {
+				currentLevel = 3;
+			}
 			if(currentLevel == 1) {
 				currentLevel = 2;
 			}
@@ -352,7 +355,7 @@ class Player {
 			if(this.p5spr.overlap(enemies.group, collidedWithEnemy)) {
 				collidingWithEnemy = true;
 				this.health -= 1;
-				if(this.health <= 0) restartLevel();
+				// if(this.health <= 0) restartLevel();
 			}
 
 			function collidedWithEnemy(player, enemy) {
