@@ -7,10 +7,17 @@ class sMainMenu {
 
 		this.draw = function () {
 			background(0);
-			textAlign(CENTER);
+			textAlign(CENTER, CENTER);
 
 			fill(255);
+			textSize(32);
 			text("Click to begin the game", width / 2, height / 2);
+
+			textAlign(RIGHT, BOTTOM);
+			textSize(16);
+			text("Background Music:\n" +
+				"Vindsvept - One Step too Far\n" +
+				"https://creativecommons.org/licenses/by/4.0/", width-12, height-12);
 		};
 
 		this.mousePressed = function () {
@@ -21,6 +28,7 @@ class sMainMenu {
 				millisAtStartLevel = millis();
 				removeElements();
 				sfxStart.play();
+				bgmOneStep.play();
 			}
 		};
 	}

@@ -34,10 +34,10 @@ class sLevel1 {
 			this.createRiver(1100, riverHeight);
 			
 
-			createTree(200, SCENE_H - 2200, 2.4);
-			createTree(860, SCENE_H - 2100, 3.0);
 			createCrate(50, SCENE_H - 2150, 0.3);
 			createCrate(920, SCENE_H - 1900, 0.4);
+			createTree(200, SCENE_H - 2200, 2.4);
+			createTree(860, SCENE_H - 2100, 3.0);
 
 
 			

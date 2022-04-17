@@ -71,6 +71,11 @@ function preload() {
 	imgBuilding4 = loadImage("assets/building4.png");
 
 	// soundFormats('wav', 'mp3');
+
+	bgmOneStep = loadSound("assets/sound/Vindsvept - One Step too Far.mp3");
+	bgmOneStep.setLoop(true);
+	bgmOneStep.setVolume(0.2);
+
 	sfxCharge = loadSound("assets/sound/charge.mp3");
 	sfxDash = loadSound("assets/sound/User Interface, Motion, Whoosh, Maximize, Short SND31007.wav");
 

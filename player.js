@@ -177,9 +177,10 @@ class Player {
 			}
 			this.dashing = true;
 			this.plrMoveSpeed = PLAYER_TOP_SPEED;
+			
+			sfxCharge.stop();
+			sfxDash.play();
 		}
-		sfxCharge.stop();
-		sfxDash.play();
 	}
 
 	update() {
