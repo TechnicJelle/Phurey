@@ -14,6 +14,7 @@ class eShooter extends eDefault {
 	update() {
 		//movement
 		if(this.viewArea.pointCheck(objPlayer.p5spr.position)) { //is player in view
+			sfxEnemyWalk.setVolume(0.5);
 			let dis = p5.Vector.dist(this.p5spr.position, objPlayer.p5spr.position); //distance to player
 			let p = p5.Vector.add(objPlayer.p5spr.position, p5.Vector.mult(objPlayer.p5spr.velocity, 3)); //player position + velocity, for leading shots
 			this.p5spr.setSpeed(constrain(map(dis, 0, this.reach, 5, 0.1), 0.1, 5), //set speed backwards
@@ -38,6 +39,21 @@ class eShooter extends eDefault {
 			let spawnpos = this.p5spr.position.copy().add(p5.Vector.fromAngle(radians(this.p5spr.rotation+180)).mult(64));
 			enemies.add(new Bullet(spawnpos.x, spawnpos.y, this.p5spr.rotation+180));
 			this.millisAtLastShot = millis();
+			
+			switch(int(random(4))) {
+				case 0:
+					sfxShoot1.play();
+					break;
+				case 1:
+					sfxShoot2.play();
+					break;
+				case 2:
+					sfxShoot3.play();
+					break;
+				case 3:
+					sfxShoot4.play();
+					break;
+			}
 		}
 	}
 

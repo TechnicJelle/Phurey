@@ -9,6 +9,8 @@ class Enemies {
 	}
 
 	add(enemy) {
+		if(!sfxEnemyWalk.isPlaying())
+			sfxEnemyWalk.play();
 		this.group.add(enemy.p5spr);
 		this.array.add(enemy);
 	}

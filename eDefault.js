@@ -16,6 +16,7 @@ class eDefault {
 
 	update() {
 		if(this.viewArea.pointCheck(objPlayer.p5spr.position)) {
+			sfxEnemyWalk.setVolume(0.5);
 			if(!objPlayer.dashing)
 				this.p5spr.setSpeed(6, degrees(p5.Vector.sub(objPlayer.p5spr.position, this.p5spr.position).heading()));
 			this.p5spr.collide(grpObstaclesSolid);

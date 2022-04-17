@@ -150,6 +150,7 @@ class Player {
 		this.millisAtStartDash = millis() - 1;
 		this.dashCharge = 0;
 		this.dashCharging = true;
+		sfxCharge.play();
 	}
 
 	commitDash() {
@@ -177,6 +178,8 @@ class Player {
 			this.dashing = true;
 			this.plrMoveSpeed = PLAYER_TOP_SPEED;
 		}
+		sfxCharge.stop();
+		sfxDash.play();
 	}
 
 	update() {
@@ -208,6 +211,7 @@ class Player {
 		this.p5spr.overlap(powerups.group, gotPowerUp);
 		
 		function gotPowerUp(player, powerup) {
+			sfxPowerupGet.play();
 			let hitPowerups = powerups.killSpr(powerup);
 			let hitPowerup = hitPowerups[0];
 			print(hitPowerup.constructor.name);
@@ -333,12 +337,16 @@ class Player {
 			this.vecInputMovement.x = 0;
 		}
 
+		sfxPlrWalk.setVolume(0);
 		if (this.vecInputMovement.magSq() > 0.1) {
 			this.vecInputMovement.limit(1);
 			this.p5spr.addSpeed(
 				this.plrMoveSpeed * this.vecInputMovement.mag(),
 				degrees(this.vecInputMovement.heading())
 			);
+			sfxPlrWalk.setVolume(0.5);
+			if(!sfxPlrWalk.isPlaying())
+				sfxPlrWalk.play();
 		}
 
 		this.p5spr.velocity.mult(DRAG);
@@ -456,6 +464,20 @@ class Player {
 	}
 
 	slash() {
+		switch(int(random(4))) {
+			case 0:
+				sfxSlash1.play();
+				break;
+			case 1:
+				sfxSlash2.play();
+				break;
+			case 2:
+				sfxSlash3.play();
+				break;
+			case 3:
+				sfxSlash4.play();
+				break;
+		}
 		objPlayer.camShake(5);
 		this.slashing = true;
 		this.canSlash = false;
@@ -485,11 +507,13 @@ class Player {
 			}
 			if(hit) {
 				enemies.kill(enemy);
-				if(enemy.constructor.name == "Bullet")
+				if(enemy.constructor.name == "Bullet") {
 					objPlayer.camShake(10);
-				else {
+					sfxBulletHitPlay();
+				} else {
 					objPlayer.camShake(20);
 					livingEnemies--;
+					sfxEnemyHit.play();
 				}
 			}
 		});

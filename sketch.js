@@ -69,6 +69,48 @@ function preload() {
 	imgBuilding2 = loadImage("assets/building2.png");
 	imgBuilding3 = loadImage("assets/building3.png");
 	imgBuilding4 = loadImage("assets/building4.png");
+
+	// soundFormats('wav', 'mp3');
+	sfxCharge = loadSound("assets/sound/charge.mp3");
+	sfxDash = loadSound("assets/sound/User Interface, Motion, Whoosh, Maximize, Short SND31007.wav");
+
+	sfxPowerupGet = loadSound("assets/sound/Electricity, Zap, Shock, Impact, Heavy 01 SND20301.wav");
+	sfxPowerupAmbient = loadSound("assets/sound/Electricity, Buzz & Hum, Motor, Electric, Neon, Loop SND5749.wav");
+	sfxPowerupAmbient.setLoop(true);
+	sfxPowerupAmbient.setVolume(0);
+
+	sfxSlash1 = loadSound("assets/sound/Weapons, Sword, Swing Fast, Whoosh, Metal SND34535.wav");
+	sfxSlash2 = loadSound("assets/sound/Weapons, Sword, Swing Fast, Whoosh, Metal SND34535 (2).wav");
+	sfxSlash3 = loadSound("assets/sound/Weapons, Sword, Swing Fast, Whoosh, Metal SND34535 (3).wav");
+	sfxSlash4 = loadSound("assets/sound/Weapons, Sword, Swing Fast, Whoosh, Metal SND34535 (4).wav");
+
+	sfxShoot1 = loadSound("assets/sound/Guns, Pistol, Revolver, Shot x4 SND6028.wav");
+	sfxShoot2 = loadSound("assets/sound/Guns, Pistol, Revolver, Shot x4 SND6028 (2).wav");
+	sfxShoot3 = loadSound("assets/sound/Guns, Pistol, Revolver, Shot x4 SND6028 (3).wav");
+	sfxShoot4 = loadSound("assets/sound/Guns, Pistol, Revolver, Shot x4 SND6028 (4).wav");
+
+	sfxEnemyHit = loadSound("assets/sound/Gore, Stab, Knife, Slice, Slash Skin, Fleshy, Gore 02 SND22380.wav");
+	sfxBulletHit1 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400.wav");
+	sfxBulletHit2 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400 (2).wav");
+	sfxBulletHit3 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400 (3).wav");
+	sfxBulletHit4 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400 (4).wav");
+	sfxBulletHit5 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400 (5).wav");
+	sfxBulletHit6 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400 (6).wav");
+	sfxBulletHit7 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400 (7).wav");
+	sfxBulletHit8 = loadSound("assets/sound/Bullets, Impact, Metal, Heavy, Powerful, Hard SND6400 (8).wav");
+
+	sfxStart = loadSound("assets/sound/Games, Video, GUI Menu Button, Select OK, Start Game, Metal Dark, Resonant Reverb SND67956.wav");
+	sfxStart.rate(1.2);
+
+	sfxPlrWalk = loadSound("assets/sound/Footsteps, Human, Dirt, Dry, Sneaker, Medium SND1034.wav");
+	sfxPlrWalk.setLoop(true);
+	sfxPlrWalk.setVolume(0);
+	sfxPlrWalk.rate(2);
+
+	sfxEnemyWalk = loadSound("assets/sound/Footsteps, Human, Sand, Step Hard SND62094.wav");
+	sfxEnemyWalk.setLoop(true);
+	sfxEnemyWalk.setVolume(0);
+	sfxEnemyWalk.rate(2);
 }
 
 function setup() {
@@ -129,6 +171,7 @@ function setup() {
 }
 
 function draw() {
+	sfxEnemyWalk.setVolume(0);
 	SCENE_MANAGER.draw();
 
 	//I can turn on and off the camera at any point to restore
@@ -155,6 +198,9 @@ function draw() {
 	}
 	
 	if (millis() - millisAtShowScore < MILLIS_TO_SHOW_SCORE_FOR) {
+		stroke(0);
+		strokeWeight(4);
+		fill(255);
 		textAlign(CENTER, CENTER);
 		textSize(32);
 		text(strScore, width/2, height - 50);
@@ -163,16 +209,21 @@ function draw() {
 	}
 
 
+	
+	if(!sfxPowerupAmbient.isPlaying()) sfxPowerupAmbient.play();
+	sfxPowerupAmbient.setVolume(0);
 	if(objPlayer.health > 1) {
 		stroke(0, 0, 255);
 		strokeWeight(10);
 		line(0, height - 10, map(millis() - objPlayer.millisAtGetPUHealth, 0, objPlayer.millisPUHealthDuration, width, 0), height - 10);
+		sfxPowerupAmbient.setVolume(0.3);
 	}
 
 	if(objPlayer.millisBetweenSlashes != objPlayer.millisBetweenSlashesDefault) {
 		stroke(255, 128, 64);
 		strokeWeight(10);
 		line(0, height - 25, map(millis() - objPlayer.millisAtGetPUSword, 0, objPlayer.millisPUSwordDuration, width, 0), height - 25);
+		sfxPowerupAmbient.setVolume(0.4);
 	}
 
 	// if(objPlayer.plrMoveSpeed > PLAYER_TOP_SPEED) {
@@ -300,6 +351,7 @@ function setupLevel(bkgrImg) {
 }
 
 function restartLevel() {
+	if(currentLevel >= 1) sfxStart.play();
 	if(currentLevel == 1) {
 		SCENE_H = 6000;
 		setupLevel(imgSand);
@@ -348,4 +400,33 @@ function millisToMinutesAndSeconds(millis) {
 	let minutes = floor(millis / 60000);
 	let seconds = floor((millis % 60000) / 1000);
 	return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
+function sfxBulletHitPlay() {
+	switch(int(random(8))) {
+		case 0:
+			sfxBulletHit1.play();
+			break;
+		case 1:
+			sfxBulletHit2.play();
+			break;
+		case 2:
+			sfxBulletHit3.play();
+			break;
+		case 3:
+			sfxBulletHit4.play();
+			break;
+		case 4:
+			sfxBulletHit5.play();
+			break;
+		case 5:
+			sfxBulletHit6.play();
+			break;
+		case 6:
+			sfxBulletHit7.play();
+			break;
+		case 7:
+			sfxBulletHit8.play();
+			break;
+	}
 }

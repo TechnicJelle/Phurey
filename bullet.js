@@ -30,8 +30,11 @@ class Bullet {
 		print(ret);
 		//if item in array is not a bullet, then an enemy was hit
 		ret.forEach(enemy => {
-			if(enemy.constructor.name != "Bullet")
+			if(enemy.constructor.name != "Bullet") {
 				livingEnemies--; //and as such, one less enemy is alive
+				sfxEnemyHit.play();
+			}
 		});
+		sfxBulletHitPlay();
 	}
 }

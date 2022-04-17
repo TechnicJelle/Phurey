@@ -20,6 +20,7 @@ class sMainMenu {
 				millisAtStartGame = millis();
 				millisAtStartLevel = millis();
 				removeElements();
+				sfxStart.play();
 			}
 		};
 	}
