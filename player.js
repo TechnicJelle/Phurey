@@ -192,6 +192,10 @@ class Player {
 		this.updateMovement();
 		
 		if(this.p5spr.position.y < 100) {
+			if(currentLevel == 4) return;
+			if(currentLevel == 3) {
+				currentLevel = 4;
+			}
 			if(currentLevel == 2) {
 				currentLevel = 3;
 			}

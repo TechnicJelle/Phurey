@@ -1,7 +1,7 @@
 //the scene is way bigger than the canvas
 let SCENE_W = 1000;
 let SCENE_H = 6000;
-let DEBUG_MODE = true;
+let DEBUG_MODE = false;
 let SCENE_MANAGER;
 let GAMEPAD;
 
@@ -56,6 +56,7 @@ function preload() {
 	imgSand = loadImage("assets/aerial_beach_01_diff_1k.jpg");
 	imgRedRock = loadImage("assets/sandstone_cracks_diff_1k.jpg");
 	imgMossySand = loadImage("assets/rock_pitted_mossy_diff_1k.jpg");
+	imgSpace = loadImage("assets/space.png");
 	imgPlayer = loadImage("assets/asteroids_ship0001.png");
 	imgEnemyDefault = loadImage("assets/eDefault.png");
 	imgRiver = loadImage("assets/platform.png");
@@ -310,9 +311,14 @@ function restartLevel() {
 		SCENE_MANAGER.showScene(sLevel2);
 	}
 	if(currentLevel == 3) {
-		SCENE_H = 6000;
+		SCENE_H = 6100;
 		setupLevel(imgMossySand);
 		SCENE_MANAGER.showScene(sLevel3);
+	}
+	if(currentLevel == 4) {
+		SCENE_H = 1000;
+		setupLevel(imgSpace);
+		SCENE_MANAGER.showScene(sLevel4);
 	}
 	strScore = totalEnemies - livingEnemies + "/" + totalEnemies + " Enemies killed\n";
 	strScore += "Time: " + millisToMinutesAndSeconds(millis() - millisAtStartLevel);
