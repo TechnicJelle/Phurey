@@ -38,6 +38,9 @@ let gamepadConnectedAttempts = 0;
 let lastFramerates = [];
 let frameRateWarniningGiven = false;
 let currentLevel = 0;
+let totalEnemies = 0;
+let livingEnemies = 0;
+let strScoreEnemies = "";
 
 let usingGamepad;
 
@@ -142,6 +145,13 @@ function draw() {
 		text(objPlayer.health, 10, 30);
 		text(millis(), 10, 50);
 	}
+	
+	textAlign(CENTER, CENTER);
+	textSize(32);
+	text(strScoreEnemies, width/2, height - 50);
+	textAlign(LEFT, TOP);
+	textSize(16);
+
 
 	if(objPlayer.health > 1) {
 		stroke(0, 0, 255);
@@ -291,10 +301,11 @@ function restartLevel() {
 		SCENE_MANAGER.showScene(sLevel2);
 	}
 	if(currentLevel == 3) {
-		SCENE_H = 9500;
+		SCENE_H = 6000;
 		setupLevel(imgMossySand);
 		SCENE_MANAGER.showScene(sLevel3);
 	}
+	strScoreEnemies = totalEnemies - livingEnemies + "/" + totalEnemies + " Enemies killed";
 }
 
 function createTree(x, y, scale) {

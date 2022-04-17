@@ -355,7 +355,7 @@ class Player {
 			if(this.p5spr.overlap(enemies.group, collidedWithEnemy)) {
 				collidingWithEnemy = true;
 				this.health -= 1;
-				// if(this.health <= 0) restartLevel();
+				if(this.health <= 0) restartLevel();
 			}
 
 			function collidedWithEnemy(player, enemy) {
@@ -483,8 +483,10 @@ class Player {
 				enemies.kill(enemy);
 				if(enemy.constructor.name == "Bullet")
 					objPlayer.camShake(10);
-				else
+				else {
 					objPlayer.camShake(20);
+					livingEnemies--;
+				}
 			}
 		});
 	}

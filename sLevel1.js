@@ -2,8 +2,8 @@ class sLevel1 {
 	constructor() {
 		this.enter = function () {
 			objPlayer.p5spr.position.x = SCENE_W / 2;
-			// objPlayer.p5spr.position.y = SCENE_H - 10;
-			objPlayer.p5spr.position.y = 50;
+			objPlayer.p5spr.position.y = SCENE_H - 10;
+			// objPlayer.p5spr.position.y = 50;
 			objPlayer.p5spr.addSpeed(10, -90);
 
 			//level content
@@ -63,6 +63,9 @@ class sLevel1 {
 
 			enemies.add(new eShooter(SCENE_W/2-150, SCENE_H - 5000, -120, undefined, 450));
 			enemies.add(new eShooter(SCENE_W/2+150, SCENE_H - 5000, -70, undefined, 450));
+			totalEnemies = enemies.group.size();
+			livingEnemies = totalEnemies;
+
 			//input hints
 			//TODO: Implement "assets/ui/or.png"
 			//keyboard+mouse

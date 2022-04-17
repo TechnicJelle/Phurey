@@ -20,12 +20,15 @@ class Enemies {
 	}
 
 	killSpr(enemySpr) {
+		let ret = [];
 		enemySpr.life = 0;
 		this.array.forEach(enemy => {
 			if(enemy.p5spr.life == 0) {
 				this.kill(enemy);
 				objPlayer.camShake(10);
+				ret.push(enemy);
 			}
 		});
+		return ret;
 	}
 }

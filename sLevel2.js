@@ -2,8 +2,8 @@ class sLevel2 {
 	constructor() {
 		this.enter = function () {
 			objPlayer.p5spr.position.x = SCENE_W / 2;
-			// objPlayer.p5spr.position.y = SCENE_H - height/2 - 100;
-			objPlayer.p5spr.position.y = 50;
+			objPlayer.p5spr.position.y = SCENE_H - height/2 - 100;
+			// objPlayer.p5spr.position.y = 50;
 			objPlayer.p5spr.addSpeed(10, -90);
 
 			//level content
@@ -92,6 +92,8 @@ class sLevel2 {
 				createTree(0 + random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
 				createTree(SCENE_W - random(0, 50), SCENE_H - i + random(-50, 50), random(2,3));
 			}
+			totalEnemies = enemies.group.size();
+			livingEnemies = totalEnemies;
 
 
 
