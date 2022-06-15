@@ -3,7 +3,8 @@ A game made for the subject Game Design.\
 [Play it here!](https://technicjelle.github.io/Phurey/)
 
 This game was made in JavaScript using the [p5.js framework](https://p5js.org/), [p5.play library](https://molleindustria.github.io/p5.play/), [p5 SceneManager](https://mveteanu.github.io/p5.SceneManager/) and [HTML5 Javascript Gamepad Controller Library](https://kallaspriit.github.io/HTML5-JavaScript-Gamepad-Controller-Library/).\
-I am never making anything approaching or exceeding this scale in JavaScript ever again. This was not a fun developing experience.
+I am never making anything approaching or exceeding this scale in JavaScript ever again. This was not a fun developing experience.\
+But in the end, I have now gotten a rather nice grade that I am very happy with!
 
 Phurey is a challenging 2D slasher/shooter inspired by Furi and many other games.
 
