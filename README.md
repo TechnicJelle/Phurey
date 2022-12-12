@@ -1,14 +1,15 @@
 # Phurey: The Wild West Ninja
+Phurey is a challenging 2D slasher/shooter inspired by Furi and many other games.
+
 A game made for the subject Game Design.\
 [Play it here!](https://technicjelle.github.io/Phurey/)
 
-This game was made in JavaScript using the [p5.js framework](https://p5js.org/), [p5.play library](https://molleindustria.github.io/p5.play/), [p5 SceneManager](https://mveteanu.github.io/p5.SceneManager/) and [HTML5 Javascript Gamepad Controller Library](https://kallaspriit.github.io/HTML5-JavaScript-Gamepad-Controller-Library/).\
+This game was made in JavaScript using the [p5.js framework](https://p5js.org/), [p5.play library](https://molleindustria.github.io/p5.play/), [p5 SceneManager](https://mveteanu.github.io/p5.SceneManager/) and [HTML5 Javascript Gamepad Controller Library](https://kallaspriit.github.io/HTML5-JavaScript-Gamepad-Controller-Library/).
+
 I am never making anything approaching or exceeding this scale in JavaScript ever again. This was not a fun developing experience.\
-But in the end, I have now gotten a rather nice grade that I am very happy with!
+Almost *<span title="41+43+36+67+82+554+34+16+16+441+196+131+130+77+49 = 1913">2k lines</span>* of suffering.
 
-Phurey is a challenging 2D slasher/shooter inspired by Furi and many other games.
-
-**The following document is the Game Design Document that describes the game I had originally planned to make. Due to time and effort constraints, I had to scope down quite a bit for the final game.**
+**The following document is the Game Design Document that describes the game I had originally planned to make. Due to time, effort and programming language constraints, I had to scope down quite a bit for the final game.**
 
 ## 1. Game overview
 Link to the game: https://technicjelle.github.io/Phurey/
